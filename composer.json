@@ -1,0 +1,13 @@
+{
+    "name": "mufar/firstmutual",
+    "type": "project",
+    "authors": [
+        {
+            "name": "MufaroDKaseke",
+            "email": "mufarodkaseke@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

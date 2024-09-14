@@ -1,0 +1,67 @@
+// Main Stylesheet
+
+// Imports
+@import "variables";
+@import "fonts";
+
+a {
+  text-decoration: none;
+  transition: all .25s ease;
+  &:hover {
+    //color: $primary;
+    //transition: all .25s ease;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  @extend .roboto-bold;
+}
+
+body {
+  @extend .roboto-regular;
+}
+
+.btn-primary {
+  color: $white;
+}
+
+
+
+// Login
+
+.login {
+  > .container > .row {
+    min-height: 100vh;
+  }
+
+  &-pane {
+    position: relative;
+    //padding: 1.5rem 1rem;
+    animation: fadeIn .5s ease-in-out;
+  }
+
+  &-pane[data-pane='login-pane-1'] {
+
+    .login-tab-btn {
+      width: 100%;
+      background: lighten($secondary, 60%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+
+      i {
+        font-size: 3rem;
+      }
+    }
+  }
+
+
+}
+// Header
+//@import "header";

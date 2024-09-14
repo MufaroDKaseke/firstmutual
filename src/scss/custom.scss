@@ -1,0 +1,49 @@
+// Custom Theme
+
+// Colors
+$color-1: #EA1D26;
+$color-2: #FFFFFF;
+$color-3: #626061;
+$color-4: #211E1F;
+
+
+// Theme
+$primary: $color-1;
+$secondary: $color-4;
+
+// Typography
+$headings-color: $primary;
+
+// Links
+$navbar-light-color: $secondary;
+$navbar-light-active-color: $primary;
+
+// Buttons
+
+// Forms
+$input-group-addon-color: $primary;
+$input-group-addon-bg: transparent;
+
+
+// Import the functions and variables
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+$custom-theme-colors: (
+  "color1": #EA1D26,
+  "color2": #FFFFFF,
+  "color3": #626061,
+  "color4": #211E1F
+);
+
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);
+
+// Forms(with variables)
+$input-padding-y-lg:                    $input-btn-padding-y-lg * 1.2;
+$input-padding-x-lg:                    $input-btn-padding-x-lg * 1.2;
+$input-font-size-lg:                    $input-btn-font-size-lg * .8;
+
+
+
+// Import Bootstrap
+@import "../../node_modules/bootstrap/scss/bootstrap";
