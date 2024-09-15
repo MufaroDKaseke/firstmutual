@@ -2,13 +2,7 @@ $( document ).ready(function() {
 
   let loginTabBtn = $('.login-tab-btn');
 
-  // loginTabBtn.on('click', function(e) {
-  //   e.preventDefault();
-  //   $('.login-pane').removeClass('show active').css('display', 'none');
-  //   $(`.login-pane[data-pane='${$(this).attr('data-target')}'`).toggleClass('show active fadeIn').css('display', 'block').fadeIn(300);
-  // });
-
-
+  // Get login form tab
   loginTabBtn.on('click', function(e) {
     e.preventDefault();
     
@@ -26,9 +20,5 @@ $( document ).ready(function() {
   });
 
 
-  // $('#loginForm').on('submit', function(e) => {
-  //   e.preventDefault();
-
-  // });
 
 });

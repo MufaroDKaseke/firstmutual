@@ -10,6 +10,10 @@ $( document ).ready(function() {
     sidebar.toggleClass('show');
   });
 
+  // Close sidebar
+  $('.main-content, .sidebar-close').on('click', (e) => {
+    sidebar.removeClass('show');
+  });
 
 
 });
