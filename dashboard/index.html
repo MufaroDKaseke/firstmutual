@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../dist/lib/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="../node_modules/animate.css/animate.min.css">
+  <link rel="stylesheet" href="../dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../dist/css/dashboard.min.css">
+</head>
+<body>
+
+
+  <main class="d-flex">
+    <aside class="sidebar">
+      <a href="#" class="d-block text-center my-3">
+        <img src="../dist/img/first-mutual-logo.svg" alt="First Mutual Logo" class="w-75">
+      </a>
+      <ul class="sidebar-nav nav flex-column">
+        <li class="nav-item">
+          <a href="#" class="nav-link active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false">Home <i class="fa fa-angle-right"></i></a>
+          <div class="collapse" id="collapse1">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a href="#" class="nav-link">Collapsed</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">Collapsed</a>
+              </li>
+
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Home</a>
+        </li>
+      </ul>
+    </aside>
+
+    <div class="main-content">
+      <nav id="header" class="navbar">
+        <div class="container-fluid">
+          <div class="row justify-content-between w-100">
+            <div class="col d-flex align-items-center">
+              <button class="sidebar-toggle btn d-md-none"><i class="fa fa-bars"></i></button>
+              <p class="mb-0">Logged in as Admin</p>
+            </div>
+            <div class="col">
+              <ul class="nav justify-content-end">
+                <li class="nav-item">
+                  <a href="#" class="nav-link"><i class="fa fa-envelope"></i></a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-user"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </main>
+  
+
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../dist/js/dashboard.js"></script>
+</body>
+</html>

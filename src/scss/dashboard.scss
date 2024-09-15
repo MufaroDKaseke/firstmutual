@@ -1,0 +1,124 @@
+// Main Stylesheet
+
+// Imports
+@import "variables";
+@import "fonts";
+
+a {
+  text-decoration: none;
+  transition: all .25s ease;
+  &:hover {
+    //color: $primary;
+    //transition: all .25s ease;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  @extend .roboto-bold;
+}
+
+body {
+  @extend .roboto-regular;
+}
+
+.btn-primary {
+  color: $white;
+}
+
+
+// Sidebar
+
+.sidebar {
+  width: 15%;
+  min-height: 100vh;
+  background: $color-3;
+
+
+  @media screen and (max-width: $breakpoint-md) {
+    display: none;
+    z-index: 2000;
+
+    &.show {
+      display: block;
+      position: fixed;
+      width: 75%;
+      height: 100vh;
+      animation: fadeInLeft 1s ease-in-out;
+      box-shadow: 1px 0px 10px $secondary;
+    }
+  }
+
+  &-nav {
+    .nav-item {}
+
+    .nav-link {
+      color: $white;
+      border-left: 3px solid transparent;
+      transition: all .5s ease-in-out;
+
+
+      &.active, &:hover {
+        background: lighten($primary, 40%);
+        color: $primary;
+        border-left: 3px solid $primary;
+        transition: all .5s ease-in-out;
+      }
+
+      &[data-bs-toggle="collapse"] {
+        i {
+          font-size: .8rem;
+          transition: all .5s ease-in-out;
+
+        }
+
+        &[aria-expanded="true"] {
+          background: lighten($primary, 40%);
+          color: $primary;
+          border-left: 3px solid $primary;
+          transition: all .5s ease-in-out;
+
+          i {
+            transform: rotateZ(90deg);
+            transition: all .5s ease-in-out;
+          }
+        }
+      }
+    }
+
+
+    .collapse {
+      border-left: 3px solid $primary;
+      border-bottom: 3px solid $primary;
+      .nav-item {
+        width: 100%;
+      }
+
+      .nav-link {
+        font-size: .9rem;
+        padding-left: 1.5rem;
+
+        &:hover {
+          border: none;
+        }
+      }
+    }
+
+  }
+
+}
+
+
+// Main Content
+.main-content {
+  width: 100%;
+}
+
+
+// Header
+#header {
+  border-bottom: 1px solid $primary;
+}
