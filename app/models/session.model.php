@@ -29,12 +29,12 @@ class Session extends Database {
     $this->connect();
 
     if ($userType === "admin") {
-      $sql = "SELECT * FROM admins WHERE username='" . $data['admin']  . "' OR email='" . $data['admin'] . "';";
-    } elseif ($userType === "employee") {
-      $sql = "SELECT * FROM employees WHERE username='" . $data['employee']  . "' OR email='" . $data['employee'] . "';";
+      $sql = "SELECT * FROM admins WHERE username='" . $data['username']  . "' OR email='" . $data['username'] . "';";
+    } elseif ($userType === "staff") {
+      $sql = "SELECT * FROM employees WHERE username='" . $data['username']  . "' OR email='" . $data['username'] . "';";
       
     } elseif ($userType === "user") {
-      $sql = "SELECT * FROM users WHERE username='" . $data['user']  . "' OR email='" . $data['user'] . "';";
+      $sql = "SELECT * FROM users WHERE username='" . $data['username']  . "' OR email='" . $data['username'] . "';";
     } else {
       $this->close();
       $this->errorLogin("user_type_invalid");
@@ -56,7 +56,7 @@ class Session extends Database {
       }
     } else {
       $this->close();
-      //$this->errorLogin("username_invalid");
+      $this->errorLogin("username_invalid");
       return false;
     }
   }
@@ -83,6 +83,9 @@ class Session extends Database {
     }
 
     $_SESSION['user_is_logged_in'] = true;
+    echo 'Login Success';
+    echo "Role: " . $_SESSION['user_type'];
+    echo "Username" . $_SESSION['username'];
     return true;
   }
 

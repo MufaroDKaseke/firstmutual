@@ -1,6 +1,5 @@
 <?php
 
-var_dump($_POST['admin']);
 require_once 'app/config/config.php';
 require_once 'app/models/db.model.php';
 require_once 'app/models/session.model.php';

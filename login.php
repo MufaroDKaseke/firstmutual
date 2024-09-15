@@ -21,7 +21,7 @@
           <div class="col-lg-6">
             <div class="login-container bg-color2 p-5 rounded-2">
               <h2>Login</h2>
-              <form id="loginForm" action="test.php" method="post">
+              <form id="loginForm" action="process.php" method="post">
                 <div class="login-pane show active" data-pane="login-pane-1">
                   <h4>Choose Account Type</h4>
 
@@ -34,7 +34,7 @@
                       
                     </div>
                     <div class="col-4 my-3 text-center">
-                      <button class="login-tab-btn btn" data-target="login-pane-3">
+                      <button class="login-tab-btn btn" data-target="staff">
                         <i class="fas fa-user-doctor"></i>
                         Employee
                       </button>
@@ -42,81 +42,27 @@
                     </div>
 
                     <div class="col-4 my-3 text-end">
-                      <button class="login-tab-btn btn" data-target="login-pane-4">
+                      <button class="login-tab-btn btn" data-target="user">
                         <i class="fas fa-user"></i>
                         Patient
                       </button>
                       
                     </div>
                   </div>
+                </div>
 
 
-
-                </div>
-                <div class="login-pane" data-pane="login-pane-2" style="display: none;">
-                  <h4>Administrator</h4>
-                  <!-- Extra Input -->
-                  <!--<input type="hidden" name="login" value="admin">-->
-                  <!-- End Of Extra Input -->
-                  <div class="input-group py-3">
-                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    <input type="text" name="admin" id="username" class="form-control form-control-lg" placeholder="Username">
-                  </div>
-                  <div class="input-group py-3">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="text" name="password" id="password" class="form-control form-control-lg" placeholder="Password">
-                  </div>
-                  <div class="d-flex justify-content-between py-2">
-                    <button class="login-tab-btn btn btn-lg btn-primary" data-target="login-pane-1">Back</button>
-                    <button type="submit" name="login" value="admin" class="btn btn-lg btn-primary">Login</button> 
-                  </div>
-                </div>
-                <div class="login-pane" data-pane="login-pane-3" style="display: none;">
-                 <h4>Employee</h4>
-                 <div class="input-group py-3">
-                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                  <input type="text" name="employee" id="username" class="form-control" placeholder="Username">
-                </div>
-                <div class="input-group py-3">
-                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                  <input type="text" name="password" id="password" class="form-control" placeholder="Password">
-                </div>
-                <div class="d-flex justify-content-between py-2">
-                  <button class="login-tab-btn btn btn-primary" data-target="login-pane-1">Back</button>
-                  <button type="submit" name="login" value="admin" class="btn btn-lg btn-primary">Login</button> 
-                </div>
-              </div>
-              <div class="login-pane" data-pane="login-pane-4" style="display: none">
-               <h4>Patient</h4>
-               <!-- Extra Input -->
-               <input type="hidden" name="login" value="user">
-               <!-- End Of Extra Input -->
-               <div class="input-group py-3">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                <input type="text" name="user" id="username" class="form-control" placeholder="Username">
-              </div>
-              <div class="input-group py-3">
-                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                <input type="text" name="password" id="password" class="form-control" placeholder="Password">
-              </div>
-              <div class="d-flex justify-content-between py-2">
-                <button class="login-tab-btn btn btn-primary" data-target="login-pane-1">Back</button>
-                <button type="submit" name="login" value="admin" class="btn btn-lg btn-primary">Login</button> 
-
-              </div>
+              </form>
             </div>
-
-          </form>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-</main>
+    </section>
+  </main>
 
 
-<script src="./node_modules/jquery/dist/jquery.min.js"></script>
-<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./dist/js/main.js"></script>
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./dist/js/main.js"></script>
 </body>
 </html>
