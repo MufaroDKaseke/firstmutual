@@ -167,4 +167,22 @@ body {
 // Header
 #header {
   border-bottom: 1px solid $primary;
+
+  .dropdown {
+    .dropdown-menu {
+
+    }
+
+    .dropdown-item {
+      &:hover {
+        background: lighten($primary, 40%);
+        color: $primary;
+        transition: all .5s ease-in-out;
+      }
+    }
+  }
+
+  .header-user-profile {
+    border-radius: 50%;
+  }
 }
