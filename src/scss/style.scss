@@ -27,6 +27,10 @@ body {
 
 .btn-primary {
   color: $white;
+
+  &:hover {
+    color: $white;
+  }
 }
 
 
@@ -63,5 +67,62 @@ body {
 
 
 }
+
+
 // Header
-//@import "header";
+#header {
+
+  .nav-link {
+    padding: .5rem 1rem;
+  }
+
+}
+
+
+// Hero
+
+.hero {
+  > .container > .row {
+    min-height: 75vh;
+  }
+}
+
+// Offerings
+
+.offerings {
+
+  > .container {
+    background: darken($primary, 30%);
+  }
+
+  &-container {
+    padding: 1.5rem 1rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: $white;
+    color: $primary;
+    border-radius: 50%;
+    font-size: 1.5rem;
+  }
+}
+
+
+// Callout
+.callout {
+  background: linear-gradient(rgb(44 0 2 / 90%), rgb(44 0 2 / 90%)), url('../../dist/img/callout-bg.jpg') center/cover;
+  background-attachment: fixed; 
+}
+
+
+// Footer
+.footer {
+  background: lighten($secondary, 10%);
+}
