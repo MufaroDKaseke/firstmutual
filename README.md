@@ -73,6 +73,10 @@
 │   ├── lib
 ├── src
 │   ├── scss
+├── dashboard
+│   ├── admin
+│   ├── staff
+│   ├── user
 ├── node_modules
 ├── composer.json
 ├── composer.lock
@@ -84,3 +88,64 @@
 
 
 ```
+
+
+## Database Tables
+
+1. admins
+  - admin_id
+  - username
+  - password
+  - firstname
+  - surname
+  - phone_number
+  - email
+2. staff
+  - staff_id
+  - username
+  - password
+  - firstname
+  - surname
+  - nat_id_number
+  - email
+  - phone_number
+  - staff_type
+3. users
+  - user_id
+  - username
+  - password
+  - firstname
+  - surname
+  - nat_id_number
+  - dob
+  - phone_number
+  - email
+  - med_aid
+4. medical_aid
+  - med_id
+  - employer
+  - issue_date
+  - expiry_date
+5. stock
+  - stock_id
+  - name
+  - description
+  - threshold
+  - price
+  - balance
+6. stock_entries
+  - stock_id
+  - supplier
+  - date
+  - amount
+7. prescriptions
+  - presc_id
+  - user_id
+  - img
+  - uploaded_on
+8. sales
+  - sale_id
+  - sale_date
+  - presc_id
+  - staff_id
+  - total
