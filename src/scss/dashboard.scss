@@ -186,3 +186,18 @@ body {
     border-radius: 50%;
   }
 }
+
+
+// QR Scanner
+.qr-scanner {
+  video {
+    width: 100%;
+  }
+}
+
+// Dispense
+.dispense {
+
+  &-container {
+  }
+}
