@@ -29,7 +29,7 @@
                 <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Firstname">
               </div>
               <div class="input-group my-3 justify-content-end">
-                <button class="btn btn-primary">Complete Registration</button>
+                <button type="submit" class="btn btn-primary">Complete Registration</button>
               </div>
             </form>
           </div>
