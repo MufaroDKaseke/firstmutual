@@ -74,6 +74,7 @@ class Stock extends Database {
 
     if (mysqli_num_rows($result) === 1) {
       $drug = mysqli_fetch_assoc($result);
+      $this->close();
 
       if($drug['balance'] - $drug['threshold'] > 0) {
         return true;
@@ -81,6 +82,7 @@ class Stock extends Database {
         return false;
       }
     } else {
+      $this->close();
       return false;
     }
 
@@ -94,13 +96,14 @@ class Stock extends Database {
 
     if (mysqli_num_rows($result) === 1) {
       $drug = mysqli_fetch_assoc($result);
-
+      $this->close();
       if($drug['balance'] > 0) {
         return true;
       } else {
         return false;
       }
     } else {
+      $this->close();
       return false;
     }
   }
