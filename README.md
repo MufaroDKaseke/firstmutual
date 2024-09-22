@@ -1,12 +1,34 @@
 # First Mutual Health Portal
 
 
-## Requirements
+## Developer Requirements
 
 1. PHP min v7.6(e.g XAMPP) [click here to download XAMPP](https://www.apachefriends.org/download.html)
 2. MySql Database (i.e included in XAMPP)
 3. Sass compiler (i.e npm install -g sass)
 4. Composer [click here to download](https://getcomposer.org/download/)
+5. Git v2.46.1
+
+## Production Requirements
+
+1. Microsoft Azure Virtual Machine - Ubuntu Server v24.04.1
+2. Apache 2.4.43
+3. PHP minimum v7.6
+4. MySQL v8.4
+5. Git v2.46.1
+
+
+## Frontend Technology
+
+1. HTML/CSS
+2. JS
+3. Bootstrap (CSS Framework)
+4. JQuery (Events)
+
+## Backend Technology
+
+1. PHP (Core)
+2. MySQL (Database)
 
 
 ## Setting up
