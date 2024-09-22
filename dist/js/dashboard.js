@@ -19,7 +19,7 @@ $( document ).ready(function() {
   const dispenseLoadTabBtn = $('.dispense-container button[data-load="dispense-form"');
 
   // Load next slide on dispense
-  dispenseLoadTabBtn.on('click', function(e) {
+  dispenseContainer.on('click', 'button[data-load]', function(e) {
     // Get specific form
     $.ajax({
       url: `https://localhost/firstmutual/app/services/${$(this).attr('data-load')}.php`,

@@ -20,8 +20,11 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-lg-6">
             <div class="login-container bg-color2 p-5 rounded-2">
-              <h2>Login</h2>
-              <form id="loginForm" action="process.php" method="post">
+              <div class="text-center">
+                <img src="./dist/img/first-mutual-logo.svg" alt="" width="60%" class="img-fluid">
+              </div>
+              <h2 class="text-center mb-3">Login</h2>
+              <form id="loginForm" action="./dashboard/authenticate.php" method="post">
                 <div class="login-pane show active" data-pane="login-pane-1">
                   <h4>Choose Account Type</h4>
 
