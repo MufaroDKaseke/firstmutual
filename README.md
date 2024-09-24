@@ -171,3 +171,18 @@
   - presc_id
   - staff_id
   - total
+9. item
+  - item_id
+  - name
+  - item_type
+  - status
+  - strength
+  - composition
+  - manufacturer
+  - supplier_id
+10. supplier
+  - supplier_id
+  - item_supplied
+  - date
+  - address
+  - item_quantity
