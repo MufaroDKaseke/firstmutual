@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-  let loginTabBtn = $('.login-tab-btn');
+  /* let loginTabBtn = $('.login-tab-btn');
 
   // Get login form tab
   loginTabBtn.on('click', function(e) {
@@ -17,8 +17,7 @@ $( document ).ready(function() {
 
     });
     
-  });
-
+  }); */
 
 
 });

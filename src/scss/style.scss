@@ -27,7 +27,7 @@ body {
 
 .btn-primary {
   color: $white;
-
+  
   &:hover {
     color: $white;
   }
@@ -41,15 +41,15 @@ body {
   > .container > .row {
     min-height: 100vh;
   }
-
+  
   &-pane {
     position: relative;
     //padding: 1.5rem 1rem;
     animation: fadeIn .5s ease-in-out;
   }
-
+  
   &-pane[data-pane='login-pane-1'] {
-
+    
     .login-tab-btn {
       width: 100%;
       background: lighten($secondary, 60%);
@@ -58,24 +58,24 @@ body {
       align-items: center;
       justify-content: center;
       padding: 1.5rem;
-
+      
       i {
         font-size: 3rem;
       }
     }
   }
-
-
+  
+  
 }
 
 
 // Header
 #header {
-
+  
   .nav-link {
     padding: .5rem 1rem;
   }
-
+  
 }
 
 
@@ -90,17 +90,17 @@ body {
 // Offerings
 
 .offerings {
-
+  
   > .container {
     background: darken($primary, 30%);
   }
-
+  
   &-container {
     padding: 1.5rem 1rem;
     display: flex;
     align-items: center;
   }
-
+  
   &-icon {
     display: flex;
     align-items: center;
@@ -125,4 +125,75 @@ body {
 // Footer
 .footer {
   background: lighten($secondary, 10%);
+}
+
+
+// Registration Page
+
+.register {
+  &-progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey;
+    
+    .active {
+      color: $primary;
+    }
+    
+    li {
+      text-align: center;
+      list-style-type: none;
+      font-size: 15px;
+      width: 33.3%;
+      float: left;
+      position: relative;
+      font-weight: 400;
+    }
+    
+    li:before {
+      content: "";
+      width: 50px;
+      height: 50px;
+      line-height: 45px;
+      display: block;
+      font-size: 20px;
+      color: #ffffff;
+      background: lightgray;
+      border-radius: 50%;
+      margin: 0 auto 10px auto;
+      padding: 2px;;
+    }
+    
+    li:after {
+      content: '';
+      width: 100%;
+      height: 5px;
+      background: lightgray;
+      position: absolute;
+      left: 0;
+      top: 25px;
+      z-index: 100;
+    }
+    
+    li.active:before {
+      background: $primary;
+    }
+    
+    li.active:after {
+      background: $primary;
+    }
+    
+    li.active:after {
+      background: $primary;
+    }
+  }
+
+  fieldset {
+    display: none;
+
+    &.show {
+      display: block;
+      animation: fadeIn .5s ease-in-out;
+    }
+  }
 }

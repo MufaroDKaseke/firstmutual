@@ -117,7 +117,7 @@ class Session extends Database {
   }
 
   function errorLogin($errorCode) {
-    header("Location: " . $_ENV['ROOT'] . "/login.php?error=" . $errorCode);
+    header("Location: " . $_ENV['ROOT'] . "dashboard/login.php?error=" . $errorCode);
     exit;
   }
 
