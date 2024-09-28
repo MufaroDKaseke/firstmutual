@@ -20,16 +20,49 @@ $( document ).ready(function() {
 
   // Load next slide on dispense
   dispenseContainer.on('click', 'button[data-load]', function(e) {
+    let form = $(this).parents('form');
+    let formData = form.serialize();
+
     // Get specific form
     $.ajax({
       url: `https://localhost/firstmutual/app/services/${$(this).attr('data-load')}.php`,
-      type: 'GET',
+      type: 'POST',
       dataType: 'html',
+      data: formData,
       success: function(htmlData) {
         dispenseContainer.html(htmlData);
       }
 
     });
+  });
+
+  dispenseContainer.on('click', '.dispense-item-add', function(e) {
+    let currentCart = $('input#items').val();
+    let qty = $(this).siblings('input[name=qty]').val();
+    let item = JSON.parse($(this).siblings('select[name=item]').children('option:selected').val());
+
+    item.quantity = parseInt(qty);
+    item.subtotal = parseInt(item.price) * parseInt(item.quantity);
+    if (currentCart !== "") {
+      currentCart = JSON.parse(currentCart);
+    } else {
+      currentCart = [];
+    }
+    currentCart.push(item);
+    $('input#items').val(JSON.stringify(currentCart));
+
+    $('#cart-items').prepend(`
+        <li class="list-group-item d-flex justify-content-between lh-sm">
+          <div>
+            <h6 class="my-0">${item.name}</h6>
+            <small class="text-body-secondary">Brief description</small>
+          </div>
+          <span class="text-body-secondary">${item.subtotal}</span>
+        </li>
+      `);
+
+    $('#cart-total').html(parseInt($('#cart-total').text()) + item.subtotal);
+
   });
 
 

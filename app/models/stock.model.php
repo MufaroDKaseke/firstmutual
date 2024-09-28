@@ -37,6 +37,23 @@ class Stock extends Database {
     }
   }
 
+  // Get drug info
+  public function getDrug() {
+    $this->connect();
+    $sql = "SELECT * FROM tbl_stock WHERE stock_id='" . $drugId . "';";
+    $result = mysqli_query($this->db_conn, $sql);
+
+    if (mysqli_num_rows($result) === 1) {
+      $drug = mysqli_fetch_assoc($result);
+      $this->close();
+      return $drug;
+    } else {
+      $this->close();
+      return false;
+    }
+  }
+  
+
   // Change Threshold
   public function setThreshold($drugId, $newThreshold) {
     $this->connect();
@@ -104,6 +121,25 @@ class Stock extends Database {
       }
     } else {
       $this->close();
+      return false;
+    }
+  }
+
+
+  // Get all drugs that are available
+  public function availableDrugs() {
+    $this->connect();
+    $sql = "SELECT * FROM tbl_stock WHERE (balance >= 1);";
+    $result = mysqli_query($this->db_conn, $sql);
+  
+    if (mysqli_num_rows($result) > 0) {
+  
+      $drugs = [];
+      while ($row = mysqli_fetch_assoc($result)) {
+        $drugs[$row['stock_id']] = $row;
+      }
+      return $drugs;
+    } else {
       return false;
     }
   }

@@ -72,7 +72,7 @@ class Session extends Database {
       $_SESSION['email'] = $userData['email'];
     } else if ($userType === "staff") {
       $_SESSION['user_type'] = $userType;
-      $_SESSION['staff_id'] = $userData['employee_id'];
+      $_SESSION['staff_id'] = $userData['staff_id'];
       $_SESSION['username'] = $userData['username'];
       $_SESSION['firstname'] = $userData['firstname'];
       $_SESSION['surname'] = $userData['surname'];

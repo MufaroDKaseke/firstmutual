@@ -30,10 +30,13 @@ class QR extends Database {
 
     $result = mysqli_query($this->db_conn, $sql);
 
-    if(mysqli_num_rows($result) === 1) {
-      $data =  mysqli_fetch_assoc($result);
+    $presc = [];
+    if(mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $presc[$row['presc_id']] = $row;
+      }
       $this->close();
-      return $data;
+      return $presc;
     } else {
       return false;
     }
@@ -41,9 +44,9 @@ class QR extends Database {
 
   // Get user medical aid
   public function getUserMedicalAid($qrCode) {
+    $user = $this->getUserDetails($qrCode);
     $this->connect();
-    $sql = "SELECT * FROM tbl_medical_aid WHERE user_id='" . $qrCode . "'";
-
+    $sql = "SELECT * FROM tbl_medical_aid WHERE med_id='" . $user['med_aid'] . "'";
     $result = mysqli_query($this->db_conn, $sql);
 
     if(mysqli_num_rows($result) === 1) {

@@ -7,11 +7,13 @@ require_once '../../app/models/session.model.php';
 require_once '../../app/models/staff.model.php';
 require_once '../../app/models/stock.model.php';
 require_once '../../app/models/qr.model.php';
+require_once '../../app/models/sales.model.php';
 
 $session = new Session();
 $user = new Staff();
 $stock = new Stock();
 $qr = new QR();
+$sales = new Sales();
 
 
 ?>
@@ -125,6 +127,28 @@ $qr = new QR();
       <div class="main-content">
         <div class="container-fluid">
           <div class="row">
+            <div class="col-12">
+              <?php
+                if (isset($_POST['sale'])) {
+                  $_POST['items'] = json_decode($_POST['items'][0]);
+                  if ($sales->newEntry($_POST)) {
+                    ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <strong>New sale!</strong> Thank you <?=$_POST['firstname'];?>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php
+                  } else {
+                    ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <strong>Whoops!</strong> Error
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php
+                  }
+                }
+              ?>
+            </div>
             <div class="col-lg-6">
               <section class="dispense">
                 <h4>Dispense</h4>
@@ -174,6 +198,9 @@ $qr = new QR();
 
         });
       });
+
+
+      // Instascan for QR scanning
       Instascan.Camera.getCameras().then(function(cameras) {
         if (cameras.length > 0) {
           scanner.start(cameras[1]);

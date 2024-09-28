@@ -200,4 +200,15 @@ body {
 
   &-container {
   }
+
+  .dispense-tabs {
+    fieldset {
+      display: none;
+  
+      &.show {
+        display: block;
+        animation: fadeIn .5s ease-in-out;
+      }
+    }
+  }
 }

@@ -186,3 +186,8 @@
   - date
   - address
   - item_quantity
+11. sales_items
+  - sale_id
+  - stock_id
+  - quantity
+  - subtotal
