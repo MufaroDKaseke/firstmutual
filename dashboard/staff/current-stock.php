@@ -47,13 +47,13 @@ $sales = new Sales();
         </a>
         <ul class="sidebar-nav nav flex-column">
           <li class="nav-item">
-            <a href="./" class="nav-link active"><i class="fas fa-home me-2"></i>Home</a>
+            <a href="./" class="nav-link"><i class="fas fa-home me-2"></i>Home</a>
           </li>
           <li class="nav-item">
             <a href="./pos.php" class="nav-link"><i class="fas fa-cart-shopping me-2"></i>Pos</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false"><i class="fas fa-box me-2"></i>Stock <i class="fa fa-angle-right"></i></a>
+            <a href="#" class="nav-link active" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false"><i class="fas fa-box me-2"></i>Stock <i class="fa fa-angle-right"></i></a>
             <div class="collapse" id="collapse1">
               <ul class="nav flex-column">
                 <li class="nav-item">
@@ -128,41 +128,99 @@ $sales = new Sales();
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-              <?php
-                if (isset($_POST['sale'])) {
-                  var_dump($_POST['items']);
-                  $_POST['items'] = json_decode($_POST['items'][0]);
-                  if ($sales->newEntry($_POST)) {
-                    ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                      <strong>New sale!</strong> Thank you <?=$_POST['firstname'];?>
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    <?php
-                  } else {
-                    ?>
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                      <strong>Whoops!</strong> Error
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    <?php
-                  }
-                }
-              ?>
+              <div class="dashboard-alerts">
+                <!-- Alerts go here -->
+              </div>
             </div>
-            <div class="col-lg-6">
-              <section class="dispense">
-                <h4>Dispense</h4>
-                <div class="dispense-container">
-                  <?php
-                  require_once '../../app/services/dispense-tab-start.php';
-                  ?>
+            <div class="col-lg-9">
+              <section>
+                <div class="d-flex justify-content-between mb-3">
+                  <h4>Stock</h4>
+
+                  <form id="stockSearchForm" action="">
+                    <div class="input-group">
+                      <input type="text" name="q" id="q" class="form-control form-control-sm" placeholder="Search Stock">
+                      <div class="input-group-text p-0">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-magnifying-glass"></i></button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
+
+                <table id="stockTable" class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col" colspan="3">Description</th>
+                      <th scope="col">Threshold</th>
+                      <th scope="col">Balance</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Paracetamol</td>
+                      <td colspan="3">White round tablet (20mg packaging)</td>
+                      <td>12</td>
+                      <td>10</td>
+                      <td><button class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></button></td>
+                    </tr>
+                    <?php
+                    $currentStock = $stock->getAllDrugs();
+                    if ($currentStock !== false) {
+                      foreach ($currentStock as $stockItem) {
+                    ?>
+                        <tr>
+                          <td><?= $stockItem['stock_id']; ?></td>
+                          <td><?= $stockItem['name']; ?></td>
+                          <td colspan="3"><?= $stockItem['description']; ?></td>
+                          <td><?= $stockItem['threshold']; ?></td>
+                          <td><?= $stockItem['balance']; ?></td>
+                          <td><button class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></button></td>
+                        </tr>
+                      <?php
+                      }
+                    } else {
+                      ?>
+                      <tr>
+                        <td colspan="6" class="text-center">No Drugs Available</td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+                  <tfoot>
+
+                  </tfoot>
+                </table>
+
               </section>
             </div>
-            <div class="col-lg-6">
-              <section class="qr-scanner">
-                <video id="medIdScanner"></video>
+            <div class="col-lg-3">
+              <section>
+                <h4>Add New Stock</h4>
+                <form id="addStockForm">
+                  <label for="stock_id" class="form-label">StockID</label>
+                  <div class="input-group mb-2">
+                    <input type="text" name="stock_id" id="stock_id" class="form-control" placeholder="StockID">
+                  </div>
+                  <label for="supplier" class="form-label">Supplier</label>
+                  <div class="input-group mb-2">
+                    <input type="text" name="supplier" id="supplier" class="form-control" placeholder="Supplier">
+                  </div>
+                  <label for="amount" class="form-label">Amount</label>
+                  <div class="input-group mb-2">
+                    <input type="number" name="amount" id="amount" class="form-control" placeholder="Amount">
+                  </div>
+                  <!-- Hidden -->
+                  <input type="hidden" name="add_stock" value="add_stock">
+                  <hr class="bg-primary">
+                  <div class="input-group my-2">
+                    <button type="submit" class="btn btn-primary w-100">Complete</button>
+                  </div>
+                </form>
               </section>
             </div>
           </div>
@@ -178,39 +236,46 @@ $sales = new Sales();
   <script src="<?= $_ENV['ROOT']; ?>/dist/js/dashboard.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      const scanner = new Instascan.Scanner({
-        video: document.getElementById('medIdScanner')
-      });
-      const dispenseContainer = $('.dispense-container');
-      scanner.addListener('scan', function(qrContent) {
-        console.log(qrContent);
 
-        // Get user details and prescriptions from
+      const stockContainer = $('#stockTable tbody');
+      const alertsContainer = $('.dashboard-alerts');
+
+      // Get searched stock
+      $('#stockSearchForm').on('submit', (e) => {
+        e.preventDefault();
+
         $.ajax({
-          url: `<?= $_ENV['ROOT']; ?>app/services/dispense-qr-1.php`,
+          url: `<?= $_ENV['ROOT']; ?>app/services/search-stock.php`,
           type: 'POST',
           dataType: 'html',
           data: {
-            qr_code: `${qrContent}`
+            q: $('#stockSearchForm input[name=q]').val(),
+            search_stock: "search_stock"
           },
           success: function(htmlData) {
-            dispenseContainer.html(htmlData);
+            console.log('Success ajax');
+            stockContainer.html(htmlData);
           }
-
         });
       });
 
+      // Add new stock
+      $('#addStockForm').on('submit', (e) => {
+        e.preventDefault();
 
-      // Instascan for QR scanning
-      Instascan.Camera.getCameras().then(function(cameras) {
-        if (cameras.length > 0) {
-          scanner.start(cameras[1]);
-        } else {
-          console.error('No cameras found.');
-        }
-      }).catch(function(e) {
-        console.error(e);
+        console.log($('#addStockForm').serialize());
+        $.ajax({
+          url: `<?= $_ENV['ROOT']; ?>app/services/add-stock.php`,
+          type: 'POST',
+          dataType: 'html',
+          data: $('#addStockForm').serialize(),
+          success: function(htmlData) {
+            console.log(htmlData);
+            alertsContainer.html(htmlData);
+          }
+        });
       });
+
     });
   </script>
 </body>

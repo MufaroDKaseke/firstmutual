@@ -12,7 +12,7 @@ $stock = new Stock();
 ?>
 
 <div>
-  <form action="" method="post">
+  <form>
     <!-- Hidden -->
     <?php
     foreach ($_POST as $key => $value) {
@@ -21,7 +21,7 @@ $stock = new Stock();
     <?php
     }
     ?>
-    <input type="hidden" name="items[]" values="[]" id="items">
+    <input type="hidden" name="items" values="[]" id="items">
     <!-- End Of Hidden -->
       <div>
         <h5>Name :<?= $_POST['firstname']; ?></h5>
@@ -54,8 +54,9 @@ $stock = new Stock();
         <input type="number" name="qty" id="qty" class="form-control" min="1" value="1">
         <button type="button" class="dispense-item-add btn btn-primary">Add</button>
       </div>
-      <div class="input-group">
-        <button type="submit" class="btn btn-primary" name="sale" value="sale">Complete</button>
+      <hr class="bg-primary">
+      <div class="input-group my-2 justify-content-end">
+        <button type="button" class="btn btn-primary" data-load="dispense-tab-3">Complete</button>
       </div>
   </form>
 </div>

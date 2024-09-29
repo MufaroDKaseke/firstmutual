@@ -211,4 +211,21 @@ body {
       }
     }
   }
+
+  &-payment-btn {
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border: 2px solid;
+    margin-bottom: 1rem;
+
+    input:radio {
+      display:none;
+    }
+
+    .checked {
+      background: $primary;
+      color: $white;
+    }
+  }
 }

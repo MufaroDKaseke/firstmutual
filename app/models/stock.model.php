@@ -38,7 +38,7 @@ class Stock extends Database {
   }
 
   // Get drug info
-  public function getDrug() {
+  public function getDrug($drugId) {
     $this->connect();
     $sql = "SELECT * FROM tbl_stock WHERE stock_id='" . $drugId . "';";
     $result = mysqli_query($this->db_conn, $sql);
@@ -51,6 +51,44 @@ class Stock extends Database {
       $this->close();
       return false;
     }
+  }
+
+  // Get all drug info
+  public function getAllDrugs() {
+    $this->connect();
+    $sql = "SELECT * FROM tbl_stock ORDER BY stock_id ASC";
+    $result = mysqli_query($this->db_conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+      $drugs = [];
+      while ($row = mysqli_fetch_assoc($result)) {
+        $drugs[$row['stock_id']] = $row;
+      }
+      $this->close();
+      return $drugs;
+    } else {
+      $this->close();
+      return false;
+    }
+  }
+  
+
+  public function searchDrugs($q) {
+    $this->connect();
+    $sql = "SELECT * FROM tbl_stock WHERE name LIKE '%" . $q . "%' OR description LIKE '%" . $q . "%' OR stock_id LIKE '%" . $q . "%'";
+    $result = mysqli_query($this->db_conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+      $drugs = [];
+      while ($row = mysqli_fetch_assoc($result)) {
+        $drugs[$row['stock_id']] = $row;
+      }
+      $this->close();
+      return $drugs;
+    } else {
+      $this->close();
+      return false;
+    } 
   }
   
 

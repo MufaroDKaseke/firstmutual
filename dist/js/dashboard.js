@@ -66,4 +66,10 @@ $( document ).ready(function() {
   });
 
 
+  dispenseContainer.on('click', '.dispense-payment-btn', function (e) {
+    $('.dispense-payment-btn').removeClass('checked');
+    $(this).addClass('checked');
+  });
+
+
 });

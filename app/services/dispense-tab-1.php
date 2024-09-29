@@ -23,7 +23,8 @@
         <label for="email">Email</label>
         <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email">
       </div>
-      <div class="d-flex justify-content-end">
+      <hr class="bg-primary">
+      <div class="input-group justify-content-end">
         <button type="button" class="btn btn-primary" data-load="dispense-tab-2">Complete Registration</button>
       </div>
     </form>
