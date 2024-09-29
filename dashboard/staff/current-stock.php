@@ -253,7 +253,7 @@ $sales = new Sales();
             search_stock: "search_stock"
           },
           success: function(htmlData) {
-            console.log('Success ajax');
+            //console.log('Success ajax');
             stockContainer.html(htmlData);
           }
         });
@@ -263,7 +263,7 @@ $sales = new Sales();
       $('#addStockForm').on('submit', (e) => {
         e.preventDefault();
 
-        console.log($('#addStockForm').serialize());
+        //console.log($('#addStockForm').serialize());
         $.ajax({
           url: `<?= $_ENV['ROOT']; ?>app/services/add-stock.php`,
           type: 'POST',

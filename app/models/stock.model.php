@@ -131,14 +131,14 @@ class Stock extends Database {
       $drug = mysqli_fetch_assoc($result);
       $this->close();
 
-      if($drug['balance'] - $drug['threshold'] > 0) {
-        return true;
+      if($drug['balance'] - $drug['threshold'] < 0) {
+        return 1;
       } else {
-        return false;
+        return 0;
       }
     } else {
       $this->close();
-      return false;
+      return 0;
     }
 
   }
@@ -153,13 +153,13 @@ class Stock extends Database {
       $drug = mysqli_fetch_assoc($result);
       $this->close();
       if($drug['balance'] > 0) {
-        return true;
+        return 1;
       } else {
-        return false;
+        return 0;
       }
     } else {
       $this->close();
-      return false;
+      return 0;
     }
   }
 
