@@ -23,18 +23,17 @@ $medicalAid = $qr->getUserMedicalAid($_POST['qr_code']);
 
   <form>
 
-    <!-- Hidden -->
-    <?php
-    foreach ($user as $key => $value) {
-    ?>
-      <input type="hidden" name="<?= $key; ?>" value="<?= $value; ?>">
-    <?php
-    }
-    ?>
-    <!-- End Of Hidden -->
+    
     <?php
     if ($user !== false) {
-    ?>
+      foreach ($user as $key => $value) {
+        ?>
+        <!-- Hidden -->
+        <input type="hidden" name="<?= $key; ?>" value="<?= $value; ?>">
+        <!-- End Of Hidden -->
+        <?php
+      }
+      ?>
       <h5>User</h5>
       <span class="text-success"><i class="fa fa-circle-check"></i>Found</span>
       Firstname: <?= $user['firstname']; ?><br>
@@ -56,9 +55,9 @@ $medicalAid = $qr->getUserMedicalAid($_POST['qr_code']);
     <?php
     } else {
     ?>
-    <!-- Hidden -->
-     <input type="hidden" name="presc_id" value="00000">
-     <!-- End Of Hidden -->
+      <!-- Hidden -->
+      <input type="hidden" name="presc_id" value="00000">
+      <!-- End Of Hidden -->
       <span class="text-danger"><i class="fa fa-circle-xmark"></i>Not Found</span>
     <?php
     }
@@ -67,6 +66,7 @@ $medicalAid = $qr->getUserMedicalAid($_POST['qr_code']);
     <?php
     if ($medicalAid !== false) {
     ?>
+      <input type="hidden" name="has_medical_aid" value="true">
       <span class="text-success"><i class="fa fa-circle-check"></i>Found</span>
       <?php
       foreach ($medicalAid as $key => $value) {

@@ -181,4 +181,25 @@ class Stock extends Database {
       return false;
     }
   }
+
+  // Get all stock entries or deliveries
+  public function getAllStockEntries() {
+    $this->connect();
+    $sql = "SELECT * FROM tbl_stock_entries ORDER BY 'date' DESC";
+    $result = mysqli_query($this->db_conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+      $entries = [];
+      while ($row = mysqli_fetch_assoc($result)) {
+        $entries[$row['stock_id']] = $row;
+      }
+      $this->close();
+      return $entries;
+    } else {
+      $this->close();
+      return false;
+    }
+  }
 }
+
+

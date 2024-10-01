@@ -55,13 +55,13 @@ $( document ).ready(function() {
         <li class="list-group-item d-flex justify-content-between lh-sm">
           <div>
             <h6 class="my-0">${item.name}</h6>
-            <small class="text-body-secondary">Brief description</small>
+            <small class="text-body-secondary"><i class="fa fa-xmark"></i> ${item.quantity}</small>
           </div>
           <span class="text-body-secondary">${item.subtotal}</span>
         </li>
       `);
 
-    $('#cart-total').html(parseInt($('#cart-total').text()) + item.subtotal);
+    $('#cart-total').html('USD$' + (parseInt($('#cart-total').text()) + item.subtotal));
 
   });
 

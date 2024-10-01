@@ -98,6 +98,9 @@ $sales = new Sales();
             <div class="col">
               <ul class="nav align-items-center justify-content-end">
                 <li class="nav-item">
+                  <span># <?=$_SESSION['queue'];?></span>
+                </li>
+                <li class="nav-item">
                   <a href="#" class="nav-link"><i class="fa fa-envelope"></i></a>
                 </li>
                 <li class="nav-item">
@@ -133,6 +136,7 @@ $sales = new Sales();
                   var_dump($_POST['items']);
                   $_POST['items'] = json_decode($_POST['items'][0]);
                   if ($sales->newEntry($_POST)) {
+                    $_SESSION['queue'] += 1;
                     ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                       <strong>New sale!</strong> Thank you <?=$_POST['firstname'];?>

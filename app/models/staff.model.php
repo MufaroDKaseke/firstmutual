@@ -8,5 +8,9 @@ class Staff extends Database {
       header("Location: " . $_ENV['ROOT']);
     }
     parent::__construct();
+
+    // More session variables
+    $_SESSION['queue'] = 0;
   }
+
 }

@@ -135,7 +135,7 @@ $sales = new Sales();
             <div class="col-lg-9">
               <section>
                 <div class="d-flex justify-content-between mb-3">
-                  <h4>Stock</h4>
+                  <h4>Stock Deliveries</h4>
 
                   <form id="stockSearchForm" action="">
                     <div class="input-group">
@@ -150,42 +150,35 @@ $sales = new Sales();
                 <table id="stockTable" class="table">
                   <thead>
                     <tr>
+                      <th scope="col">Date</th>
                       <th scope="col">#ID</th>
                       <th scope="col">Name</th>
-                      <th scope="col" colspan="3">Description</th>
-                      <th scope="col">Threshold</th>
-                      <th scope="col">Balance</th>
-                      <th scope="col">Actions</th>
+                      <th scope="col">Supplier</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Current Balance</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <!-- <tr>
-                      <td>1</td>
-                      <td>Paracetamol</td>
-                      <td colspan="3">White round tablet (20mg packaging)</td>
-                      <td>12</td>
-                      <td>10</td>
-                      <td><button class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></button></td>
-                    </tr> -->
                     <?php
-                    $currentStock = $stock->getAllDrugs();
-                    if ($currentStock !== false) {
-                      foreach ($currentStock as $stockItem) {
+                    $entries = $stock->getAllStockEntries();
+                    if ($entries !== false) {
+                      foreach ($entries as $stockEntry) {
+                        $stockEntryData = $stock->getDrug($stockEntry['stock_id']);
                     ?>
                         <tr>
-                          <td><?= $stockItem['stock_id']; ?></td>
-                          <td><?= $stockItem['name']; ?></td>
-                          <td colspan="3"><?= $stockItem['description']; ?></td>
-                          <td><?= $stockItem['threshold']; ?></td>
-                          <td><?= $stockItem['balance']; ?></td>
-                          <td><button class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></button></td>
+                          <th scope="row"><?= $stockEntry['date']; ?></th>
+                          <td><?= $stockEntry['stock_id']; ?></td>
+                          <td><?= $stockEntryData['name']; ?></td>
+                          <td><?= $stockEntry['supplier']; ?></td>
+                          <td><?= $stockEntry['amount']; ?></td>
+                          <td><?= $stockEntryData['balance']; ?></td>
                         </tr>
                       <?php
                       }
                     } else {
                       ?>
                       <tr>
-                        <td colspan="6" class="text-center">No Drugs Available</td>
+                        <td colspan="6" class="text-center">No Deliveries Available</td>
                       </tr>
                     <?php
                     }

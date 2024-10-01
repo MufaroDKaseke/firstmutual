@@ -10,6 +10,15 @@
     ?>
     <!-- End Of Hidden -->
     <div class="row">
+      <?php
+        if (isset($_POST['has_medical_aid'])) {
+          ?>
+          <div class="col-12">
+            <div class="alert alert-success" role="alert"><i class="fa fa-lightbulb me-2"></i>Patient has a registered medical aid plan!</div>
+          </div>
+          <?php
+        }
+      ?>
       <div class="col-md-6">
         <label class="dispense-payment-btn btn btn-lg btn-outline-primary">
           <input type="radio" name="options" id="option1" value="option1" class="form-check-input"> Cash
@@ -22,7 +31,7 @@
       </div>
       <div class="col-md-6">
         <label class="dispense-payment-btn btn btn-lg btn-outline-primary">
-          <input type="radio" name="options" id="option3" value="option3" class="form-check-input"> Medical Aid
+          <input type="radio" name="options" id="option3" value="option3" class="form-check-input" <?=(isset($_POST['has_medical_aid'])) ? 'checked' : '';?>> Medical Aid
         </label>
       </div>
       <div class="col-md-6">
