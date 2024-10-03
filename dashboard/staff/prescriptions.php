@@ -203,9 +203,6 @@ $prescription = new Prescription();
                     }
                     ?>
                   </tbody>
-                  <tfoot>
-
-                  </tfoot>
                 </table>
 
               </section>

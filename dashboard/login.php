@@ -24,7 +24,7 @@ require_once '../app/config/config.php';
 <body>
 
   <main>
-    <section class="login bg-secondary">
+    <section class="login bg-primary">
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-lg-6">

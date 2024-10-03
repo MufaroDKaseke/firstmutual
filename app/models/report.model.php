@@ -24,17 +24,16 @@ class Report extends Database {
         return $totals;
       } else {
         $this->close();
-        return false;
+        return 0;
       }
     } else {
       $sql = "SELECT SUM(total) as sum FROM tbl_sales WHERE sale_date='" . $date . "';";
       $result = mysqli_query($this->db_conn, $sql);
-
       if (mysqli_num_rows($result) > 0) {
-        return mysqli_fetch_assoc($result)['sum'];
+        return (mysqli_fetch_assoc($result)['sum'] === null) ? 0 : mysqli_fetch_assoc($result)['sum'];
       } else {
         $this->close();
-        return false;
+        return 0;
       }
     }
   }

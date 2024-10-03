@@ -11,7 +11,7 @@ class Stock extends Database {
   public function addDrug($data) {
     $this->connect();
     $stmt = mysqli_prepare($this->db_conn, "INSERT INTO tbl_stock VALUES(?, ?, ?, ?, ?, ?);");
-    mysqli_stmt_bind_param($stmt, 'sssddd', $data['id'], $data['name'], $data['description'], $data['threshold'], $data['price'], $data['balance']);
+    mysqli_stmt_bind_param($stmt, 'sssddd', $data['stock_id'], $data['name'], $data['description'], $data['threshold'], $data['price'], $data['balance']);
 
     $result = mysqli_stmt_execute($stmt);
     $this->close();

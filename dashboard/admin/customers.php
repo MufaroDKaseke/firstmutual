@@ -6,12 +6,10 @@ require_once '../../app/models/db.model.php';
 require_once '../../app/models/session.model.php';
 require_once '../../app/models/admin.model.php';
 require_once '../../app/models/stock.model.php';
-require_once '../../app/models/qr.model.php';
 
 $session = new Session();
 $user = new Admin();
 $stock = new Stock();
-$qr = new QR();
 
 
 ?>
@@ -127,18 +125,111 @@ $qr = new QR();
       <div class="main-content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-9">
-              <section class="welcome p-3">
-                <h2>Welcome <?= $_SESSION['firstname']; ?></h2>
-                <p>Good day administrator <?= $_SESSION['firstname']; ?>, welcome back to the health portal</p>
-                <a href="<?= $_ENV['ROOT']; ?>dashboard/staff/pos.php" class="btn btn-primary">View Reports</a>
+            <div class="col-12">
+              <div class="dashboard-alerts">
+                <!-- Alerts here -->
+                <?php
+                if (isset($_POST['newProductForm'])) {
+                  $formData = $_POST;
+                  $formData['stock_id'] = generateId('stc_');
+                  $formData['balance'] = 0;
+                  if ($stock->addDrug($formData)) {
+                ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <strong>Success!</strong> New product added successfully! <b><?= $formData['stock_id']; ?></b>.
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  <?php
+                  } else {
+                  ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>Error!</strong> New product couldn't be added!</b>.
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php
+                  }
+                }
+                ?>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <section>
+                <div class="d-flex justify-content-between mb-3">
+                  <h4>Beneficiaries</h4>
+
+                  <a href="#" class="btn btn-primary">Register Customer</a>
+                </div>
+
+                <table id="stockTable" class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#ID</th>
+                      <th scope="col" colspan="2">Fullname</th>
+                      <th scope="col">Phone</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Medical Aid</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $customers = $user->getAllUsers();
+                    if ($customers !== false) {
+                      foreach ($customers as $customer) {
+                    ?>
+                        <tr>
+                          <td><?= $customer['user_id']; ?></td>
+                          <td colspan="2"><?= $customer['firstname']; ?> <?= $customer['surname']; ?></td>
+                          <td><?= $customer['phone_number']; ?></td>
+                          <td><?= $customer['email']; ?></td>
+                          <td><?= $customer['med_aid']; ?></td>
+                          <td><button id="updateCustomer" class="btn btn-sm btn-success me-2" data-user-id="<?= $customer['user_id']; ?>"><i class="fas fa-pencil"></i></button><button id="deleteCustomer" class="btn btn-sm btn-primary" data-user-id="<?= $customer['user_id']; ?>"><i class="fas fa-trash"></i></button></td>
+                        </tr>
+                      <?php
+                      }
+                    } else {
+                      ?>
+                      <tr>
+                        <th colspan="7" class="text-center">No Registired Beneficiaries</th>
+                      </tr>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+                </table>
+
               </section>
             </div>
-            <div class="col-3">
-              <section class="total-sales text-center p-2">
-                <h2>Today's Sales</h2>
-                <hr class="my-3 bg-secondary">
-                <h3>0</h3>
+            <div class="col-md-4">
+              <section class="customers p-5">
+                <h3>New Stock Item</h3>
+                <form id="newProductForm" action="" method="post">
+                  <label for="" class="form-label">Product Name</label>
+                  <div class="input-group">
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Product Name" required>
+                  </div>
+                  <label for="" class="form-label">Product Description</label>
+                  <div class="input-group">
+                    <input type="text" name="description" id="description" class="form-control" placeholder="Product Description" required>
+                  </div>
+                  <label for="" class="form-label">Threshold</label>
+                  <div class="input-group">
+                    <input type="number" name="threshold" id="threshold" class="form-control" placeholder="Threshold" required>
+                  </div>
+                  <label for="" class="form-label">Price</label>
+                  <div class="input-group">
+                    <div class="input-group-text">
+                      <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <input type="number" name="price" id="price" class="form-control" placeholder="Product Name" required>
+                  </div>
+                  <hr class="my-2">
+                  <div class="input-group">
+                    <!-- Hidden -->
+                    <input type="hidden" name="newProductForm" value="newProductForm">
+                    <button type="submit" class="btn btn-primary w-100">Complete</button>
+                  </div>
+                </form>
               </section>
             </div>
           </div>
@@ -154,24 +245,9 @@ $qr = new QR();
   <script src="<?= $_ENV['ROOT']; ?>/dist/js/dashboard.js"></script>
   <script>
     $(document).ready(function() {
-      const searchAvailabilityForm = $('#checkAvailabilityForm');
-      const resultsContainer = $('.search-result-container');
-      searchAvailabilityForm.on('submit', (e) => {
-        e.preventDefault();
 
-        let details = JSON.parse($('#checkAvailabilityForm select').val());
 
-        if (details.isAvailable === 1) {
-          if (details.isLow === 1) {
-            resultsContainer.html(`<span class="text-warning"><i class="fas fa-triangle-exclamation me-2"></i>${details.name} is low in stock</span>`);
-          } else {
-            resultsContainer.html(`<span class="text-success"><i class="fas fa-circle-check me-2"></i>${details.name} is available</span>`);
-          }
-        } else {
-          resultsContainer.html(`<span class="text-danger"><i class="fas fa-triangle-exclamation me-2"></i>${details.name} is out of stock</span>`)
-        }
 
-      });
     });
   </script>
 </body>

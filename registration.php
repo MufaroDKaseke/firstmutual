@@ -42,7 +42,7 @@ require_once './app/models/db.model.php';
               </ul>
               <form action="registration-complete.php" method="post">
                 <fieldset class="show">
-                  <div class="row">
+                  <div class="row mb-3">
                     <div class="col-md-6 mt-4">
                       <label for="firstname" class="form-label">Firstname</label>
                       <div class="input-group">
@@ -57,8 +57,10 @@ require_once './app/models/db.model.php';
                     </div>
                   </div>
 
-                  <label for="nat_id_number">National ID Number</label>
-                  <input type="text" name="nat_id_number" id="nat_id_number" class="form-control" placeholder="63-xxxxxxxx-R72">
+                  <label for="nat_id_number" class="form-label mt-3">National ID Number</label>
+                  <div class="input-group">
+                    <input type="text" name="nat_id_number" id="nat_id_number" class="form-control" placeholder="63-xxxxxxxx-R72">
+                  </div>
 
                   <div class="row">
                     <!--Date of birth-->
@@ -93,7 +95,7 @@ require_once './app/models/db.model.php';
                   </div>
                   <!--phone number-->
                   <label for="phone_number" class="form-label mt-3">Phone Number</label>
-                  <div class="input-group my-2">
+                  <div class="input-group">
                     <input type="tel" name="phone_number" id="phone_number" class="form-control" placeholder="Phone Number">
                   </div>
 
@@ -142,15 +144,15 @@ require_once './app/models/db.model.php';
                 <fieldset>
                   <label for="username">Username</label>
                   <div class="input-group my-2">
-                    <input type="text" name="username" id="username" class="form-control" placeholder="Enter Username">
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Enter Username" required>
                   </div>
                   <label for="password">Password</label>
                   <div class="input-group my-2">
-                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
                   </div>
                   <label for="confirm-password">Password</label>
                   <div class="input-group my-2">
-                    <input type="password" name="confirm-password" id="confirm-password" class="form-control" placeholder="Enter Password again">
+                    <input type="password" name="confirm-password" id="confirm-password" class="form-control" placeholder="Enter Password again" required>
                   </div>
                   <!--complete submission button-->
                   <div class="input-group my-3 justify-content-end">

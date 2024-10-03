@@ -4,27 +4,22 @@ require_once '../../vendor/autoload.php';
 require_once '../../app/config/config.php';
 require_once '../../app/models/db.model.php';
 require_once '../../app/models/session.model.php';
-require_once '../../app/models/staff.model.php';
+require_once '../../app/models/admin.model.php';
 require_once '../../app/models/stock.model.php';
-require_once '../../app/models/qr.model.php';
-require_once '../../app/models/sales.model.php';
 
 $session = new Session();
-$user = new Staff();
+$user = new Admin();
 $stock = new Stock();
-$qr = new QR();
-$sales = new Sales();
 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | POS</title>
+  <title>Dashboard | Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -32,8 +27,6 @@ $sales = new Sales();
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/node_modules/animate.css/animate.min.css">
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/dist/css/dashboard.min.css">
-  <script type="text/javascript" src="<?= $_ENV['ROOT']; ?>/dist/lib/instascan/instascan.min.js"></script>
-
 </head>
 
 <body>
@@ -47,20 +40,17 @@ $sales = new Sales();
         </a>
         <ul class="sidebar-nav nav flex-column">
           <li class="nav-item">
-            <a href="./" class="nav-link"><i class="fas fa-home me-2"></i>Home</a>
+            <a href="./" class="nav-link active"><i class="fas fa-home me-2"></i>Home</a>
           </li>
           <li class="nav-item">
-            <a href="./pos.php" class="nav-link"><i class="fas fa-cart-shopping me-2"></i>Pos</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link active" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false"><i class="fas fa-box me-2"></i>Stock <i class="fa fa-angle-right"></i></a>
+            <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false"><i class="fas fa-box me-2"></i>Stock <i class="fa fa-angle-right"></i></a>
             <div class="collapse" id="collapse1">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">Current Stock</a>
+                  <a href="./current-stock.php" class="nav-link">New Stock Item</a>
                 </li>
                 <li class="nav-item">
-                  <a href="" class="nav-link">New Stock</a>
+                  <a href="./current-stock.php" class="nav-link">New Delivery</a>
                 </li>
                 <li class="nav-item">
                   <a href="./stock-entries.php" class="nav-link">Stock Entries</a>
@@ -69,10 +59,20 @@ $sales = new Sales();
             </div>
           </li>
           <li class="nav-item">
-            <a href="./reports.php" class="nav-link"><i class="fas fa-chart-pie me-2"></i>Reports</a>
+            <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false"><i class="fas fa-user-group me-2"></i>Users <i class="fa fa-angle-right"></i></a>
+            <div class="collapse" id="collapse2">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a href="./current-stock.php" class="nav-link">Customers</a>
+                </li>
+                <li class="nav-item">
+                  <a href="./current-stock.php" class="nav-link">Staff</a>
+                </li>
+              </ul>
+            </div>
           </li>
           <li class="nav-item">
-            <a href="./reports.php" class="nav-link"><i class="fas fa-prescription me-2"></i>Prescriptions</a>
+            <a href="./reports.php" class="nav-link"><i class="fas fa-chart-pie me-2"></i>Reports</a>
           </li>
           <li class="nav-item">
             <a href="./settings.php" class="nav-link"><i class="fas fa-cog me-2"></i>Settings</a>
@@ -92,29 +92,27 @@ $sales = new Sales();
           <div class="row justify-content-between w-100">
             <div class="col d-flex align-items-center">
               <button class="sidebar-toggle btn d-md-none"><i class="fa fa-bars"></i></button>
-              <a href="#" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-circle-play me-2"></i>Start Dispensing</a>
-              <a href="#" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-eye me-2"></i>View Reports</a>
+              <a href="./reports.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-chart-line me-2"></i>View Reports</a>
+              <a href="./new-drug.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-boxes-stacked me-2"></i>Inventory</a>
+              <a href="./new-drug.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-user-group me-2"></i>User Accounts</a>
             </div>
             <div class="col">
               <ul class="nav align-items-center justify-content-end">
                 <li class="nav-item">
-                  <a href="#" class="nav-link"><i class="fa fa-envelope"></i></a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link"><i class="fa fa-bell"></i></a>
+                  <a href="./notifications.php" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../dist/img/user.jpg" class="header-user-profile" alt="" width="30px" height="30px">
-                    <span><?= $_SESSION['firstname']; ?></span>
+                    <img src="../../dist/img/user.png" class="header-user-profile" alt="" width="25px" height="25px">
+                    <span class="ms-2 fw-bold"><?= $_SESSION['firstname']; ?></span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#"><i class="fa fa-user me-2"></i>User Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="./settings.php"><i class="fa fa-user me-2"></i>User Profile</a></li>
+                    <li><a class="dropdown-item" href="./settings.php"><i class="fa fa-cog me-2"></i>Settings</a></li>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item text-center" href="#"><i class="fa fa-cog me-2"></i>Settings</a></li>
+                    <li><a class="dropdown-item text-center" href="../logout.php"><i class="fa fa-right-from-bracket me-2"></i>Logout</a></li>
                   </ul>
                 </li>
 
@@ -129,10 +127,32 @@ $sales = new Sales();
           <div class="row">
             <div class="col-12">
               <div class="dashboard-alerts">
-                <!-- Alerts go here -->
+                <!-- Alerts here -->
+                <?php
+                if (isset($_POST['newProductForm'])) {
+                  $formData = $_POST;
+                  $formData['stock_id'] = generateId('stc_');
+                  $formData['balance'] = 0;
+                  if ($stock->addDrug($formData)) {
+                ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <strong>Success!</strong> New product added successfully! <b><?= $formData['stock_id']; ?></b>.
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  <?php
+                  } else {
+                  ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>Error!</strong> New product couldn't be added!</b>.
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php
+                  }
+                }
+                ?>
               </div>
             </div>
-            <div class="col-lg-9">
+            <div class="col-md-8">
               <section>
                 <div class="d-flex justify-content-between mb-3">
                   <h4>Stock</h4>
@@ -181,13 +201,13 @@ $sales = new Sales();
                           <td><?= $stockItem['balance']; ?></td>
                           <td>
                             <?php
-                              if ($stockItem['balance'] < $stockItem['threshold']) {
-                                if ($stockItem['balance'] > 0) {
-                                  echo '<span class="text-warning fw-bold"><i class="fas fa-triangle-exclamation"></i> Low</span>';
-                                } else {
-                                  echo '<span class="text-danger fw-bold"><i class="fas fa-circle-xmark"></i> Out of stock</span>';
-                                }
+                            if ($stockItem['balance'] < $stockItem['threshold']) {
+                              if ($stockItem['balance'] > 0) {
+                                echo '<span class="text-warning fw-bold"><i class="fas fa-triangle-exclamation"></i> Low</span>';
+                              } else {
+                                echo '<span class="text-danger fw-bold"><i class="fas fa-circle-xmark"></i> Out of stock</span>';
                               }
+                            }
                             ?>
                           </td>
                           <td>
@@ -212,26 +232,33 @@ $sales = new Sales();
 
               </section>
             </div>
-            <div class="col-lg-3">
-              <section>
-                <h4>Add New Stock</h4>
-                <form id="addStockForm">
-                  <label for="stock_id" class="form-label">StockID</label>
-                  <div class="input-group mb-2">
-                    <input type="text" name="stock_id" id="stock_id" class="form-control" placeholder="StockID">
+            <div class="col-md-4">
+              <section class="customers p-5">
+                <h3>New Stock Item</h3>
+                <form id="newProductForm" action="" method="post">
+                  <label for="" class="form-label">Product Name</label>
+                  <div class="input-group">
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Product Name" required>
                   </div>
-                  <label for="supplier" class="form-label">Supplier</label>
-                  <div class="input-group mb-2">
-                    <input type="text" name="supplier" id="supplier" class="form-control" placeholder="Supplier">
+                  <label for="" class="form-label">Product Description</label>
+                  <div class="input-group">
+                    <input type="text" name="description" id="description" class="form-control" placeholder="Product Description" required>
                   </div>
-                  <label for="amount" class="form-label">Amount</label>
-                  <div class="input-group mb-2">
-                    <input type="number" name="amount" id="amount" class="form-control" placeholder="Amount">
+                  <label for="" class="form-label">Threshold</label>
+                  <div class="input-group">
+                    <input type="number" name="threshold" id="threshold" class="form-control" placeholder="Threshold" required>
                   </div>
-                  <!-- Hidden -->
-                  <input type="hidden" name="add_stock" value="add_stock">
-                  <hr class="bg-primary">
-                  <div class="input-group my-2">
+                  <label for="" class="form-label">Price</label>
+                  <div class="input-group">
+                    <div class="input-group-text">
+                      <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <input type="number" name="price" id="price" class="form-control" placeholder="Product Name" required>
+                  </div>
+                  <hr class="my-2">
+                  <div class="input-group">
+                    <!-- Hidden -->
+                     <input type="hidden" name="newProductForm" value="newProductForm">
                     <button type="submit" class="btn btn-primary w-100">Complete</button>
                   </div>
                 </form>
@@ -248,7 +275,7 @@ $sales = new Sales();
   <script src="<?= $_ENV['ROOT']; ?>/node_modules/jquery/dist/jquery.min.js"></script>
   <script src="<?= $_ENV['ROOT']; ?>/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="<?= $_ENV['ROOT']; ?>/dist/js/dashboard.js"></script>
-  <script type="text/javascript">
+  <script>
     $(document).ready(function() {
 
       const stockContainer = $('#stockTable tbody');
@@ -269,23 +296,6 @@ $sales = new Sales();
           success: function(htmlData) {
             //console.log('Success ajax');
             stockContainer.html(htmlData);
-          }
-        });
-      });
-
-      // Add new stock
-      $('#addStockForm').on('submit', (e) => {
-        e.preventDefault();
-
-        //console.log($('#addStockForm').serialize());
-        $.ajax({
-          url: `<?= $_ENV['ROOT']; ?>app/services/add-stock.php`,
-          type: 'POST',
-          dataType: 'html',
-          data: $('#addStockForm').serialize(),
-          success: function(htmlData) {
-            console.log(htmlData);
-            alertsContainer.html(htmlData);
           }
         });
       });

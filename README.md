@@ -191,3 +191,32 @@
   - stock_id
   - quantity
   - subtotal
+
+
+
+## Features
+
+1. User
+  - Check Availability
+  - Registers their account
+  - Can update their basic info(e.g medical aid, e.t.c)
+  - Uploads their prescriptions
+  - Access information system(e.g FAQ, extra information on drugs)
+
+2. Staff
+  - Dispenses meds(Point Of Sale System)
+  (steps: scan QR code -> View associated user info -> Add items to cart -> Choose payment method -> Complete)
+  - Scans QR code
+  - Uploads walk in patients prescriptions
+  - Registers walk in patients info
+  - Updates stock(e.g drug deliveries from suppliers)
+  - Can also check availability of drugs
+  - Receives notifications on low stock
+
+
+3. Admin
+  - Manages user accounts
+  - Manages staff accounts
+  - View reports on sales, users, e.t.c
+  - Manages stock(e.g new drugs)
+
