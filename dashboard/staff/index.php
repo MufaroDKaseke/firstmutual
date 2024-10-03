@@ -37,7 +37,7 @@ $qr = new QR();
   <main class="d-flex">
     <aside class="sidebar">
       <div>
-        <a href="#" class="d-block text-center mt-3 mb-5">
+        <a href="./" class="d-block text-center mt-3 mb-5">
           <img src="<?= $_ENV['ROOT']; ?>dist/img/first-mutual-logo.svg" alt="First Mutual Logo" class="w-75">
         </a>
         <ul class="sidebar-nav nav flex-column">
@@ -58,7 +58,7 @@ $qr = new QR();
                   <a href="./current-stock.php" class="nav-link">Current Stock</a>
                 </li>
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">New Stock</a>
+                  <a href="./current-stock.php" class="nav-link">New Delivery</a>
                 </li>
                 <li class="nav-item">
                   <a href="./stock-entries.php" class="nav-link">Stock Entries</a>

@@ -45,4 +45,23 @@ class Prescription extends Database {
       return false;
     }
   }
+
+  // Get user prescriptions
+  public function getUserPrescriptions($userId) {
+    $this->connect();
+    $sql = "SELECT * FROM tbl_prescriptions WHERE user_id='" . $userId . "'";
+
+    $result = mysqli_query($this->db_conn, $sql);
+
+    $presc = [];
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $presc[$row['presc_id']] = $row;
+      }
+      $this->close();
+      return $presc;
+    } else {
+      return false;
+    }
+  }
 }

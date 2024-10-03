@@ -42,7 +42,7 @@ $sales = new Sales();
   <main class="d-flex">
     <aside class="sidebar">
       <div>
-        <a href="#" class="d-block text-center mt-3 mb-5">
+        <a href="./" class="d-block text-center mt-3 mb-5">
           <img src="<?= $_ENV['ROOT']; ?>dist/img/first-mutual-logo.svg" alt="First Mutual Logo" class="w-75">
         </a>
         <ul class="sidebar-nav nav flex-column">
@@ -53,14 +53,17 @@ $sales = new Sales();
             <a href="./pos.php" class="nav-link"><i class="fas fa-cart-shopping me-2"></i>Pos</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link active" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false"><i class="fas fa-box me-2"></i>Stock <i class="fa fa-angle-right"></i></a>
+            <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false"><i class="fas fa-box me-2"></i>Stock <i class="fa fa-angle-right"></i></a>
             <div class="collapse" id="collapse1">
               <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a href="./availability.php" class="nav-link">Check Availability</a>
+                </li>
                 <li class="nav-item">
                   <a href="./current-stock.php" class="nav-link">Current Stock</a>
                 </li>
                 <li class="nav-item">
-                  <a href="" class="nav-link">New Stock</a>
+                  <a href="./current-stock.php" class="nav-link">New Delivery</a>
                 </li>
                 <li class="nav-item">
                   <a href="./stock-entries.php" class="nav-link">Stock Entries</a>
@@ -72,10 +75,10 @@ $sales = new Sales();
             <a href="./reports.php" class="nav-link"><i class="fas fa-chart-pie me-2"></i>Reports</a>
           </li>
           <li class="nav-item">
-            <a href="./reports.php" class="nav-link"><i class="fas fa-prescription me-2"></i>Prescriptions</a>
+            <a href="./prescriptions.php" class="nav-link"><i class="fas fa-prescription me-2"></i>Prescriptions</a>
           </li>
           <li class="nav-item">
-            <a href="./settings.php" class="nav-link"><i class="fas fa-cog me-2"></i>Settings</a>
+            <a href="./settings.php" class="nav-link active"><i class="fas fa-cog me-2"></i>Settings</a>
           </li>
         </ul>
 

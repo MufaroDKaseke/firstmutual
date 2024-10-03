@@ -127,8 +127,8 @@ $stock = new Stock();
       <div class="container rounded-3">
         <div class="row">
           <div class="col-md-6 p-5">
-            <h3>Check For Availability</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime, fugiat!</p>
+            <h3>Check Availability</h3>
+            <p>Use this to check if the products you need are in stock!</p>
             <form id="searchAvailabilityForm" action="">
               <div class="input-group">
                 <select name="q" id="q" class="form-select form-select-lg">
