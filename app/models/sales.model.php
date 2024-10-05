@@ -35,8 +35,8 @@ class Sales extends Database {
       }
     }
 
-    $stmt = mysqli_prepare($this->db_conn, "INSERT INTO tbl_sales VALUES (?, CURRENT_TIMESTAMP, ?, ?, ?);");
-    mysqli_stmt_bind_param($stmt, 'sssd', $entryId, $data['presc_id'], $_SESSION['staff_id'], $total);
+    $stmt = mysqli_prepare($this->db_conn, "INSERT INTO tbl_sales VALUES (?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?);");
+    mysqli_stmt_bind_param($stmt, 'ssssds', $entryId, $data['presc_id'], $data['user_id'], $_SESSION['staff_id'], $total, $_POST['payment_method']);
     $result = mysqli_stmt_execute($stmt);
 
     $this->close();

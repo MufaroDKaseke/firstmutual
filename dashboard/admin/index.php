@@ -33,6 +33,7 @@ $stock = new Stock();
 
 
   <main class="d-flex">
+    <!-- Sidebar -->
     <aside class="sidebar">
       <div>
         <a href="#" class="d-block text-center mt-3 mb-5">
@@ -47,10 +48,10 @@ $stock = new Stock();
             <div class="collapse" id="collapse1">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">New Stock Item</a>
+                  <a href="./products.php" class="nav-link">Products</a>
                 </li>
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">New Delivery</a>
+                  <a href="./delivery.php" class="nav-link">New Delivery</a>
                 </li>
                 <li class="nav-item">
                   <a href="./stock-entries.php" class="nav-link">Stock Entries</a>
@@ -63,10 +64,10 @@ $stock = new Stock();
             <div class="collapse" id="collapse2">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">Customers</a>
+                  <a href="./customers.php" class="nav-link">Customers</a>
                 </li>
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">Staff</a>
+                  <a href="./staff.php" class="nav-link">Staff</a>
                 </li>
               </ul>
             </div>
@@ -85,8 +86,10 @@ $stock = new Stock();
       </div>
       <button class="sidebar-close btn"><i class="fas fa-angle-left"></i></button>
     </aside>
+    <!-- End Of Sidebar -->
 
     <div class="main">
+      <!-- Header -->
       <nav id="header" class="navbar">
         <div class="container-fluid">
           <div class="row justify-content-between w-100">
@@ -121,6 +124,7 @@ $stock = new Stock();
           </div>
         </div>
       </nav>
+      <!-- End Of Header -->
 
       <div class="main-content">
         <div class="container-fluid">

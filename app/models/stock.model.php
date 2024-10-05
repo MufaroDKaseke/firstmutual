@@ -182,6 +182,24 @@ class Stock extends Database {
     }
   }
 
+  // Get all drugs that are uavailable
+  public function outOfStockDrugs() {
+    $this->connect();
+    $sql = "SELECT * FROM tbl_stock WHERE (balance <= 0);";
+    $result = mysqli_query($this->db_conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+
+      $drugs = [];
+      while ($row = mysqli_fetch_assoc($result)) {
+        $drugs[$row['stock_id']] = $row;
+      }
+      return $drugs;
+    } else {
+      return false;
+    }
+  }
+
   // Get all stock entries or deliveries
   public function getAllStockEntries() {
     $this->connect();
@@ -191,7 +209,7 @@ class Stock extends Database {
     if (mysqli_num_rows($result) > 0) {
       $entries = [];
       while ($row = mysqli_fetch_assoc($result)) {
-        $entries[$row['stock_id']] = $row;
+        array_push($entries, $row);
       }
       $this->close();
       return $entries;

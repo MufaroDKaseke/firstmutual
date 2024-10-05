@@ -15,7 +15,7 @@ $stock = new Stock();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>First Mutual Pharmacy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@ $stock = new Stock();
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="#hero">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#services">Services</a>
@@ -59,12 +59,12 @@ $stock = new Stock();
 
 
   <main>
-    <section class="hero my-4">
+    <section id="hero" class="hero my-4">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-6">
-            <h2>Transform your care</h2>
-            <p>We solve the world's most serious and complex medical challenges.</p>
+            <h2>First Mutual Pharmacy</h2>
+            <p> Your trusted source for affordable healthcare, conveniently online.</p>
             <a href="<?= $_ENV['ROOT']; ?>registration.php" class="btn btn-primary">Register Now</a>
           </div>
           <div class="col-lg-6 text-center">
@@ -76,7 +76,7 @@ $stock = new Stock();
 
     <section class="offerings">
       <div class="container">
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-lg-4">
             <div class="offerings-container">
               <span class="offerings-icon ">
@@ -123,11 +123,11 @@ $stock = new Stock();
       </div>
     </section>
 
-    <section class="availability my-4">
+    <section id="availability" class="availability my-4">
       <div class="container rounded-3">
         <div class="row">
           <div class="col-md-6 p-5">
-            <h3>Check Availability</h3>
+            <h3>Check Product Availability</h3>
             <p>Use this to check if the products you need are in stock!</p>
             <form id="searchAvailabilityForm" action="">
               <div class="input-group">
@@ -182,11 +182,11 @@ $stock = new Stock();
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-8">
-            <h4>Get What you need now?</h4>
-            <p class="text-white">Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Unde provident necessitatibus ipsam inventore possimus quos, non deleniti minus cupiditate! Harum?</p>
+            <h3>Do you have questions?</h3>
+            <p class="text-white">Check out the FAQ and Information center for any details and information on how to use this web system!</p>
           </div>
-          <div class="col-lg-4 text-center">
-            <a href="#" class="btn btn-lg btn-primary px-3">Something</a>
+          <div class="col-lg-4 text-lg-center">
+            <a href="./faq.php" class="btn btn-lg btn-primary px-3">Information Center</a>
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ require_once '../../app/models/session.model.php';
 require_once '../../app/models/admin.model.php';
 require_once '../../app/models/stock.model.php';
 
+$db = new Database();
 $session = new Session();
 $user = new Admin();
 $stock = new Stock();
@@ -33,6 +34,7 @@ $stock = new Stock();
 
 
   <main class="d-flex">
+    <!-- Sidebar -->
     <aside class="sidebar">
       <div>
         <a href="#" class="d-block text-center mt-3 mb-5">
@@ -40,17 +42,17 @@ $stock = new Stock();
         </a>
         <ul class="sidebar-nav nav flex-column">
           <li class="nav-item">
-            <a href="./" class="nav-link active"><i class="fas fa-home me-2"></i>Home</a>
+            <a href="./" class="nav-link"><i class="fas fa-home me-2"></i>Home</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false"><i class="fas fa-box me-2"></i>Stock <i class="fa fa-angle-right"></i></a>
             <div class="collapse" id="collapse1">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">New Stock Item</a>
+                  <a href="./products.php" class="nav-link">Products</a>
                 </li>
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">New Delivery</a>
+                  <a href="./delivery.php" class="nav-link">New Delivery</a>
                 </li>
                 <li class="nav-item">
                   <a href="./stock-entries.php" class="nav-link">Stock Entries</a>
@@ -59,14 +61,14 @@ $stock = new Stock();
             </div>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false"><i class="fas fa-user-group me-2"></i>Users <i class="fa fa-angle-right"></i></a>
+            <a href="#" class="nav-link active" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false"><i class="fas fa-user-group me-2"></i>Users <i class="fa fa-angle-right"></i></a>
             <div class="collapse" id="collapse2">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">Customers</a>
+                  <a href="./customers.php" class="nav-link active">Customers</a>
                 </li>
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">Staff</a>
+                  <a href="./staff.php" class="nav-link">Staff</a>
                 </li>
               </ul>
             </div>
@@ -85,6 +87,7 @@ $stock = new Stock();
       </div>
       <button class="sidebar-close btn"><i class="fas fa-angle-left"></i></button>
     </aside>
+    <!-- End Of Sidebar -->
 
     <div class="main">
       <nav id="header" class="navbar">
@@ -128,22 +131,34 @@ $stock = new Stock();
             <div class="col-12">
               <div class="dashboard-alerts">
                 <!-- Alerts here -->
+
                 <?php
-                if (isset($_POST['newProductForm'])) {
-                  $formData = $_POST;
-                  $formData['stock_id'] = generateId('stc_');
-                  $formData['balance'] = 0;
-                  if ($stock->addDrug($formData)) {
+
+                if (isset($_POST['registerUserForm'])) {
+                  $db->connect();
+                  do {
+                    $userId = generateId('usr_');
+                    $sql = "SELECT * FROM tbl_users WHERE user_id='" . $userId . "'";
+                    $result = mysqli_query($db->db_conn, "SELECT * FROM tbl_users WHERE user_id='" . $userId . "'");
+                  } while (mysqli_num_rows($result) > 0);
+
+                  $username = strtolower($_POST['firstname']) . strtolower($_POST['surname']);
+                  $_POST['date'] = '1990-01-01';
+                  $stmt = mysqli_prepare($db->db_conn, "INSERT INTO tbl_users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                  mysqli_stmt_bind_param($stmt, 'ssssssssss', $userId, $username, $_POST['nat_id_number'], $_POST['firstname'], $_POST['surname'], $_POST['nat_id_number'], $_POST['date'], $_POST['phone_number'], $_POST['email'], $_POST['med_aid']);
+                  $result = mysqli_stmt_execute($stmt);
+
+                  if ($result) {
                 ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                      <strong>Success!</strong> New product added successfully! <b><?= $formData['stock_id']; ?></b>.
+                      <strong>Success!</strong> New pharmacy customer registered, ID as <?= $userId; ?>
                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                   <?php
                   } else {
                   ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                      <strong>Error!</strong> New product couldn't be added!</b>.
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <strong>Error!</strong> New pharmacy customer could not be registered, please use web portal!
                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php
@@ -155,9 +170,8 @@ $stock = new Stock();
             <div class="col-md-8">
               <section>
                 <div class="d-flex justify-content-between mb-3">
-                  <h4>Beneficiaries</h4>
+                  <h4>Registered User (Customer)</h4>
 
-                  <a href="#" class="btn btn-primary">Register Customer</a>
                 </div>
 
                 <table id="stockTable" class="table table-hover">
@@ -178,7 +192,7 @@ $stock = new Stock();
                       foreach ($customers as $customer) {
                     ?>
                         <tr>
-                          <td><?= $customer['user_id']; ?></td>
+                          <th scope="row"><?= $customer['user_id']; ?></th>
                           <td colspan="2"><?= $customer['firstname']; ?> <?= $customer['surname']; ?></td>
                           <td><?= $customer['phone_number']; ?></td>
                           <td><?= $customer['email']; ?></td>
@@ -201,34 +215,41 @@ $stock = new Stock();
               </section>
             </div>
             <div class="col-md-4">
-              <section class="customers p-5">
-                <h3>New Stock Item</h3>
-                <form id="newProductForm" action="" method="post">
-                  <label for="" class="form-label">Product Name</label>
-                  <div class="input-group">
-                    <input type="text" name="name" id="name" class="form-control" placeholder="Product Name" required>
+              <section>
+                <h4 class="mb-3">Register New User</h4>
+                <form action="" id="registerUserForm" method="post">
+                <div class="form-group mb-2 row">
+                  <div class="col-6">
+                    <label for="firstname">Firstname</label>
+                    <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Enter Firstname" required>
                   </div>
-                  <label for="" class="form-label">Product Description</label>
-                  <div class="input-group">
-                    <input type="text" name="description" id="description" class="form-control" placeholder="Product Description" required>
+                  <div class="col-6">
+                    <label for="surname">Surname</label>
+                    <input type="text" name="surname" id="surname" class="form-control" placeholder="Enter Surname" required>
                   </div>
-                  <label for="" class="form-label">Threshold</label>
-                  <div class="input-group">
-                    <input type="number" name="threshold" id="threshold" class="form-control" placeholder="Threshold" required>
-                  </div>
-                  <label for="" class="form-label">Price</label>
-                  <div class="input-group">
-                    <div class="input-group-text">
-                      <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <input type="number" name="price" id="price" class="form-control" placeholder="Product Name" required>
-                  </div>
-                  <hr class="my-2">
-                  <div class="input-group">
-                    <!-- Hidden -->
-                    <input type="hidden" name="newProductForm" value="newProductForm">
-                    <button type="submit" class="btn btn-primary w-100">Complete</button>
-                  </div>
+                </div>
+                <div class="form-group mb-2">
+                  <label for="nat_id_number">National ID Number</label>
+                  <input type="text" name="nat_id_number" id="nat_id_number" class="form-control" placeholder="63-xxxxxx-R87" required>
+                </div>
+                <div class="form-group mb-2">
+                  <label for="phone_number">Phone Number</label>
+                  <input type="number" name="phone_number" id="phone_number" class="form-control" placeholder="071111111" required>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="email">Email</label>
+                  <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" required>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="med_aid">Medical Aid</label>
+                  <input type="text" name="med_aid" id="med_aid" class="form-control" placeholder="Enter Medical Aid Number" required>
+                </div>
+                <hr class="bg-primary">
+                <div class="input-group my-2">
+                  <!-- Hidden -->
+                  <input type="hidden" name="registerUserForm" value="registerUserForm">
+                  <button type="submit" class="btn btn-primary w-100">Register User</button>
+                </div>
                 </form>
               </section>
             </div>

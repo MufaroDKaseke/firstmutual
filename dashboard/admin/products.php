@@ -33,6 +33,7 @@ $stock = new Stock();
 
 
   <main class="d-flex">
+    <!-- Sidebar -->
     <aside class="sidebar">
       <div>
         <a href="#" class="d-block text-center mt-3 mb-5">
@@ -40,17 +41,17 @@ $stock = new Stock();
         </a>
         <ul class="sidebar-nav nav flex-column">
           <li class="nav-item">
-            <a href="./" class="nav-link active"><i class="fas fa-home me-2"></i>Home</a>
+            <a href="./" class="nav-link"><i class="fas fa-home me-2"></i>Home</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false"><i class="fas fa-box me-2"></i>Stock <i class="fa fa-angle-right"></i></a>
+            <a href="#" class="nav-link active" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false"><i class="fas fa-box me-2"></i>Stock <i class="fa fa-angle-right"></i></a>
             <div class="collapse" id="collapse1">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">New Stock Item</a>
+                  <a href="./products.php" class="nav-link active">Products</a>
                 </li>
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">New Delivery</a>
+                  <a href="./delivery.php" class="nav-link">New Delivery</a>
                 </li>
                 <li class="nav-item">
                   <a href="./stock-entries.php" class="nav-link">Stock Entries</a>
@@ -63,10 +64,10 @@ $stock = new Stock();
             <div class="collapse" id="collapse2">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">Customers</a>
+                  <a href="./customers.php" class="nav-link">Customers</a>
                 </li>
                 <li class="nav-item">
-                  <a href="./current-stock.php" class="nav-link">Staff</a>
+                  <a href="./staff.php" class="nav-link">Staff</a>
                 </li>
               </ul>
             </div>
@@ -85,6 +86,7 @@ $stock = new Stock();
       </div>
       <button class="sidebar-close btn"><i class="fas fa-angle-left"></i></button>
     </aside>
+    <!-- End Of Sidebar -->
 
     <div class="main">
       <nav id="header" class="navbar">
@@ -253,12 +255,12 @@ $stock = new Stock();
                     <div class="input-group-text">
                       <i class="fas fa-dollar-sign"></i>
                     </div>
-                    <input type="number" name="price" id="price" class="form-control" placeholder="Product Name" required>
+                    <input type="number" name="price" id="price" class="form-control" placeholder="Product Name" step="0.01" min="0" required>
                   </div>
                   <hr class="my-2">
                   <div class="input-group">
                     <!-- Hidden -->
-                     <input type="hidden" name="newProductForm" value="newProductForm">
+                    <input type="hidden" name="newProductForm" value="newProductForm">
                     <button type="submit" class="btn btn-primary w-100">Complete</button>
                   </div>
                 </form>

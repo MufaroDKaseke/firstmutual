@@ -27,6 +27,23 @@ class Admin extends Database {
     }
   }
 
+  public function getAllStaff() {
+    $this->connect();
+    $sql = "SELECT * FROM tbl_staff;";
+    $result = mysqli_query($this->db_conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+
+      $users = [];
+      while ($row = mysqli_fetch_assoc($result)) {
+        $users[$row['staff_id']] = $row;
+      }
+      return $users;
+    } else {
+      return false;
+    }
+  }
+
   // Delete User
   // Update User
   

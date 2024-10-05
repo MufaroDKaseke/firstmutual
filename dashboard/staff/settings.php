@@ -86,42 +86,40 @@ $report = new Report();
     </aside>
 
     <div class="main">
+      <!-- Header -->
       <nav id="header" class="navbar">
         <div class="container-fluid">
           <div class="row justify-content-between w-100">
             <div class="col d-flex align-items-center">
               <button class="sidebar-toggle btn d-md-none"><i class="fa fa-bars"></i></button>
-              <a href="#" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-circle-play me-2"></i>Start Dispensing</a>
-              <a href="#" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-eye me-2"></i>View Reports</a>
+              <a href="./pos.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-circle-play me-2"></i>Start Dispensing</a>
+              <a href="./availability.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-eye me-2"></i>Check Availability</a>
             </div>
             <div class="col">
               <ul class="nav align-items-center justify-content-end">
                 <li class="nav-item">
-                  <a href="#" class="nav-link"><i class="fa fa-envelope"></i></a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link"><i class="fa fa-bell"></i></a>
+                  <a href="./notifications.php" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../dist/img/user.jpg" class="header-user-profile" alt="" width="30px" height="30px">
-                    <span><?= $_SESSION['firstname']; ?></span>
+                    <img src="../../dist/img/user.png" class="header-user-profile" alt="" width="25px" height="25px">
+                    <span class="ms-2 fw-bold"><?= $_SESSION['firstname']; ?></span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#"><i class="fa fa-user me-2"></i>User Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="./settings.php"><i class="fa fa-user me-2"></i>User Profile</a></li>
+                    <li><a class="dropdown-item" href="./settings.php"><i class="fa fa-cog me-2"></i>Settings</a></li>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item text-center" href="#"><i class="fa fa-cog me-2"></i>Settings</a></li>
+                    <li><a class="dropdown-item text-center" href="../logout.php"><i class="fa fa-right-from-bracket me-2"></i>Logout</a></li>
                   </ul>
                 </li>
-
               </ul>
             </div>
           </div>
         </div>
       </nav>
+      <!-- End Of Header -->
 
       <div class="main-content">
         <div class="container-fluid">
@@ -134,24 +132,59 @@ $report = new Report();
             <div class="col-lg-6">
               <section>
                 <h3>Settings</h3>
-                <form action="">
-                  <label for="">Staff ID</label>
-                  <input type="text" name="staff_id" id="staff_id" class="form-control" value="<?= $user['staff_id']; ?>" disabled>
+                <form action="" method="post">
+                  <label for="staff_id">Staff ID</label>
+                  <div class="form-group mb-3">
+                    <input type="text" name="staff_id" id="staff_id" class="form-control" value="<?= $_SESSION['staff_id']; ?>" disabled>
+                  </div>
                   <div class="row">
                     <div class="col-6">
-                      <label for="">Firstname</label>
-                      <input type="text" name="firstname" id="firstname" class="form-control" value="<?= $user['firstname']; ?>" disabled>
+                      <div class="form-group mb-3">
+                        <label for="firstname">Firstname</label>
+                        <input type="text" name="firstname" id="firstname" class="form-control" value="<?= $_SESSION['firstname']; ?>" disabled>
+                      </div>
                     </div>
                     <div class="col-6">
-                      <label for="">Surname</label>
-                      <input type="text" name="surnmae" id="surnmae" class="form-control" value="<?= $user['surname']; ?>" disabled>
+                      <div class="form-group mb-3">
+                        <label for="surname">Surname</label>
+                        <input type="text" name="surnmae" id="surnmae" class="form-control" value="<?= $_SESSION['surname']; ?>" disabled>
+                      </div>
                     </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" value="<?= $_SESSION['email']; ?>" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="tel" name="phone_number" id="phone_number" class="form-control" placeholder="Phone Number" value="<?= $_SESSION['phone_number']; ?>" required>
+                  </div>
+                  <div class="input-group justify-content-end">
+                    <!-- Hidden -->
+                     <input type="hidden" name="updateStaffInformationForm">
+                    <!-- End Of Hidden -->
+                    <button type="submit" class="btn btn-primary">Update Information</button>
                   </div>
                 </form>
               </section>
             </div>
             <div class="col-lg-6">
               <section>
+                <h4>Reset Password</h4>
+                <form action="" method="post">
+                  <div class="form-group">
+                    <input type="password" name="password" id="password" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <input type="confirm_password" name="confirm_password" id="confirm_password" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <!-- Hidden -->
+                    <input type="hidden" name="resetPassword" value="resetPassword">
+                    <!-- End Of Hidden -->
+                    <button type="submit" class="btn btn-primary">Reset</button>
+                  </div>
+                </form>
               </section>
             </div>
           </div>

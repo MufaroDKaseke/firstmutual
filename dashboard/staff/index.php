@@ -85,6 +85,7 @@ $qr = new QR();
     </aside>
 
     <div class="main">
+      <!-- Header -->
       <nav id="header" class="navbar">
         <div class="container-fluid">
           <div class="row justify-content-between w-100">
@@ -112,12 +113,12 @@ $qr = new QR();
                     <li><a class="dropdown-item text-center" href="../logout.php"><i class="fa fa-right-from-bracket me-2"></i>Logout</a></li>
                   </ul>
                 </li>
-
               </ul>
             </div>
           </div>
         </div>
       </nav>
+      <!-- End Of Header -->
 
       <div class="main-content">
         <div class="container-fluid">
@@ -130,7 +131,7 @@ $qr = new QR();
               <section class="welcome p-3">
                 <h2>Welcome <?= $_SESSION['firstname']; ?></h2>
                 <p>Good day <?= $_SESSION['firstname']; ?>, welcome back to the health portal</p>
-                <a href="<?= $_ENV['ROOT']; ?>dashboard/staff/pos.php" class="btn btn-primary">Start Dispensing</a>
+                <a href="<?= $_ENV['ROOT']; ?>dashboard/staff/pos.php" class="btn btn-primary"><i class="fa fa-circle-play me-2"></i>Start Work</a>
               </section>
             </div>
             <div class="col-3">
@@ -142,7 +143,32 @@ $qr = new QR();
             </div>
             <div class="col-6">
               <section>
+                <h4 class="mb-3">Notifications</h4>
+                <?php
+                $drugsOutOfStock = $stock->outOfStockDrugs();
 
+                if ($drugsOutOfStock !== false) {
+                  foreach ($drugsOutOfStock as $drugOutOfStock) {
+                ?>
+                    <div class="alert alert-danger bg-primary text-white alert-dismissible fade show p-2" role="alert">
+                      <i class="fa fa-circle-xmark me-2"></i> <?= $drugOutOfStock['name']; ?> is out of stock.
+                    </div>
+                  <?php
+                  }
+                }
+
+                $drugsInLowStock = $stock->drugsBelowThreshold();
+
+                if ($drugsInLowStock !== false) {
+                  foreach ($drugsInLowStock as $drugInLowStock) {
+                  ?>
+                    <div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
+                      <i class="fa fa-exclamation-triangle me-2"></i> <?= $drugInLowStock['name']; ?> is low in stock.
+                    </div>
+                <?php
+                  }
+                }
+                ?>
               </section>
             </div>
             <div class="col-6">

@@ -216,4 +216,9 @@ body {
       animation: fadeIn .5s ease-in-out;
     }
   }
+
+  .error {
+    font-size: .75rem;
+    color: $primary;
+  }
 }

@@ -4,7 +4,7 @@
     <?php
     foreach ($_POST as $key => $value) {
     ?>
-      <input type="hidden" name="<?= $key; ?>" value="<?= $value; ?>">
+      <input type="hidden" name="<?= $key; ?>" value='<?= $value; ?>'>
     <?php
     }
     ?>
@@ -21,28 +21,28 @@
       ?>
       <div class="col-md-6">
         <label class="dispense-payment-btn btn btn-lg btn-outline-primary">
-          <input type="radio" name="options" id="option1" value="option1" class="form-check-input"> Cash
+          <input type="radio" name="payment_method" id="cash" value="cash" class="form-check-input"> Cash
         </label>
       </div>
       <div class="col-md-6">
         <label class="dispense-payment-btn btn btn-lg btn-outline-primary">
-          <input type="radio" name="options" id="option2" value="option2" class="form-check-input"> Swipe
+          <input type="radio" name="payment_method" id="swipe" value="swipe" class="form-check-input"> Swipe
         </label>
       </div>
       <div class="col-md-6">
         <label class="dispense-payment-btn btn btn-lg btn-outline-primary">
-          <input type="radio" name="options" id="option3" value="option3" class="form-check-input" <?=(isset($_POST['has_medical_aid'])) ? 'checked' : '';?>> Medical Aid
+          <input type="radio" name="payment_method" id="med_aid" value="med_aid" class="form-check-input" <?=(isset($_POST['has_medical_aid'])) ? 'checked' : '';?>> Medical Aid
         </label>
       </div>
       <div class="col-md-6">
         <label class="dispense-payment-btn btn btn-lg btn-outline-primary">
-          <input type="radio" name="options" id="option4" value="option4" class="form-check-input"> Other
+          <input type="radio" name="payment_method" id="other" value="other" class="form-check-input"> Other
         </label>
       </div>
     </div>
     <hr class="bg-primary">
     <div class="input-group mt-3 justify-content-end">
-      <button type="submit" class="btn btn-primary" name="sale" value="sale">Complete</button>
+      <button type="submit" class="btn btn-primary" name="sale" value="sale">Complete Transaction</button>
     </div>
   </form>
 </div>

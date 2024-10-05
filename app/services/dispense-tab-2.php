@@ -6,7 +6,7 @@ require_once '../config/config.php';
 require_once '../models/db.model.php';
 require_once '../models/stock.model.php';
 
-
+$db = new Database();
 $stock = new Stock();
 
 ?>
@@ -15,16 +15,42 @@ $stock = new Stock();
   <form>
     <!-- Hidden -->
     <?php
-    foreach ($_POST as $key => $value) {
+
+    if (isset($_POST['register-user']) && !empty($_POST['firstname']) && !empty($_POST['surname']) && !empty($_POST['nat_id_number'])) {
+      $db->connect();
+      do {
+        $userId = generateId('usr_');
+        $result = mysqli_query($db->db_conn, "SELECT * FROM tbl_users WHERE user_id='" . $userId . "'");
+      } while (mysqli_num_rows($result) > 0);
+
+      $username = strtolower($_POST['firstname']) . strtolower($_POST['surname']);
+      $_POST['date'] = '1990-01-01';
+      $_POST['med_aid'] = null;
+      $stmt = mysqli_prepare($db->db_conn, "INSERT INTO tbl_users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)");
+      mysqli_stmt_bind_param($stmt, 'sssssssss', $userId, $username, $_POST['nat_id_number'], $_POST['firstname'], $_POST['surname'], $_POST['nat_id_number'], $_POST['date'], $_POST['phone_number'], $_POST['email']);
+      $result = mysqli_stmt_execute($stmt);
+
+      if ($result) {
+        $_POST['user_id'] = $userId;
     ?>
+        <div class="alert alert-success my-2 py-2" role="alert"><i class="fa fa-circle-check me-2"></i>New pharmacy customer registered, username is firstname in lowercase and password is ID number!</div>
+      <?php
+      } else {
+      ?>
+        <div class="alert alert-warning my-2 py-2" role="alert"><i class="fa fa-circle-xmark me-2"></i>New pharmacy customer could not be registered, please use web portal!</div>
+      <?php
+      }
+    }
+    foreach ($_POST as $key => $value) {
+      ?>
       <input type="hidden" name="<?= $key; ?>" value="<?= $value; ?>">
     <?php
     }
     ?>
-    <input type="hidden" name="items" values="[]" id="items">
+    <input type="hidden" name="items" value="[]" id="items">
     <!-- End Of Hidden -->
     <div>
-      <h6 class="text-secondary">FullName :<?= $_POST['firstname'] . ' ' . $_POST['surname']; ?></h6>
+      <h6 class="text-secondary">FullName : <?= $_POST['firstname'] . ' ' . $_POST['surname']; ?></h6>
       <h6 class="text-secondary">Medical Aid :
         <?php
         if (isset($_POST['has_medical_aid'])) {
@@ -34,6 +60,7 @@ $stock = new Stock();
         }
         ?>
       </h6>
+      <h6 class="text-secondary">Prescription : <?=$_POST['presc_id'];?></h6>
     </div>
 
     <ul id="cart-items" class="list-group mb-3 w-100">
@@ -46,7 +73,7 @@ $stock = new Stock();
         </li>-->
       <li class="list-group-item d-flex justify-content-between">
         <span>Total (USD)</span>
-        <strong id="cart-total">USD$ 0</strong>
+        <strong id="cart-total">USD$ <span class="cart-total-value">0</span></strong>
       </li>
     </ul>
     <div class="input-group">
@@ -55,7 +82,7 @@ $stock = new Stock();
         $availableDrugs = $stock->availableDrugs();
         foreach ($availableDrugs as $drug) {
         ?>
-          <option value='{"stock_id" :"<?= $drug['stock_id']; ?>", "price" :<?= $drug['price']; ?>, "name": "<?= $drug['name']; ?>"}'><?= $drug['name']; ?>(<?= $drug['price']; ?>)</option>
+          <option value='{"stock_id" :"<?= $drug['stock_id']; ?>", "price" :<?= $drug['price']; ?>, "name": "<?= $drug['name']; ?>"}'><?= $drug['name']; ?> ($<?= $drug['price']; ?>)</option>
         <?php
         }
         ?>
@@ -65,7 +92,7 @@ $stock = new Stock();
     </div>
     <hr class="bg-primary">
     <div class="input-group my-2 justify-content-end">
-      <button type="button" class="btn btn-primary" data-load="dispense-tab-3">Complete</button>
+      <button type="button" class="btn btn-primary" data-load="dispense-tab-3">Choose Payment Method</button>
     </div>
   </form>
 </div>

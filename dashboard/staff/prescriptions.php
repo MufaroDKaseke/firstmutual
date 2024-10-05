@@ -89,42 +89,40 @@ $prescription = new Prescription();
     </aside>
 
     <div class="main">
+      <!-- Header -->
       <nav id="header" class="navbar">
         <div class="container-fluid">
           <div class="row justify-content-between w-100">
             <div class="col d-flex align-items-center">
               <button class="sidebar-toggle btn d-md-none"><i class="fa fa-bars"></i></button>
-              <a href="#" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-circle-play me-2"></i>Start Dispensing</a>
-              <a href="#" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-eye me-2"></i>View Reports</a>
+              <a href="./pos.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-circle-play me-2"></i>Start Dispensing</a>
+              <a href="./availability.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-eye me-2"></i>Check Availability</a>
             </div>
             <div class="col">
               <ul class="nav align-items-center justify-content-end">
                 <li class="nav-item">
-                  <a href="#" class="nav-link"><i class="fa fa-envelope"></i></a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link"><i class="fa fa-bell"></i></a>
+                  <a href="./notifications.php" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../dist/img/user.jpg" class="header-user-profile" alt="" width="30px" height="30px">
-                    <span><?= $_SESSION['firstname']; ?></span>
+                    <img src="../../dist/img/user.png" class="header-user-profile" alt="" width="25px" height="25px">
+                    <span class="ms-2 fw-bold"><?= $_SESSION['firstname']; ?></span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#"><i class="fa fa-user me-2"></i>User Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="./settings.php"><i class="fa fa-user me-2"></i>User Profile</a></li>
+                    <li><a class="dropdown-item" href="./settings.php"><i class="fa fa-cog me-2"></i>Settings</a></li>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item text-center" href="#"><i class="fa fa-cog me-2"></i>Settings</a></li>
+                    <li><a class="dropdown-item text-center" href="../logout.php"><i class="fa fa-right-from-bracket me-2"></i>Logout</a></li>
                   </ul>
                 </li>
-
               </ul>
             </div>
           </div>
         </div>
       </nav>
+      <!-- End Of Header -->
 
       <div class="main-content">
         <div class="container-fluid">
@@ -156,9 +154,9 @@ $prescription = new Prescription();
             <div class="col-lg-9">
               <section>
                 <div class="d-flex justify-content-between mb-3">
-                  <h4>Stock</h4>
+                  <h4>Prescriptions</h4>
 
-                  <form id="stockSearchForm" action="">
+                  <form id="prescriptionsSearchForm" action="">
                     <div class="input-group">
                       <input type="text" name="q" id="q" class="form-control form-control-sm" placeholder="Search Stock">
                       <div class="input-group-text p-0">

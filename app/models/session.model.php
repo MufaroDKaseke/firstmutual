@@ -79,6 +79,7 @@ class Session extends Database {
       $_SESSION['email'] = $userData['email'];
       $_SESSION['staff_type'] = $userData['staff_type'];
       $_SESSION['phone_number'] = $userData['phone_number'];
+      $_SESSION['queue'] = 1;
     } else if ($userType = "user") {
       $_SESSION['user_type'] = $userType;
       $_SESSION['user_id'] = $userData['user_id'];

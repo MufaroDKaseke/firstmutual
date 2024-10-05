@@ -8,9 +8,26 @@ class Staff extends Database {
       header("Location: " . $_ENV['ROOT']  . "dashboard/login.php");
     }
     parent::__construct();
+  }
 
-    // More session variables
-    $_SESSION['queue'] = 0;
+  public function updateInformation($formData) {
+    $this->connect();
+    $stmt = mysqli_prepare($this->db_conn, "UPDATE tbl_staff SET email=?, phone_number=? WHERE staff_id=?;");
+    mysqli_stmt_bind_param($stmt, 'sis', $formData['email'], $formData['phone_number'], $formData['staff_id']);
+    $result = mysqli_stmt_execute($stmt);
+
+    $this->close();
+    return $result;
+  }
+
+  public function resetPassword($formData) {
+    $this->connect();
+    $stmt = mysqli_prepare($this->db_conn, "UPDATE tbl_staff SET 'password'=? WHERE staff_id=?;");
+    mysqli_stmt_bind_param($stmt, 's', $formData['password'], $formData['staff_id']);
+    $result = mysqli_stmt_execute($stmt);
+
+    $this->close();
+    return $result;
   }
 
 }

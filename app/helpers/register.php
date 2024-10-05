@@ -21,12 +21,12 @@ if (isset($_POST['register'])) {
 
   do {
     $userId = generateUserId();
-    $sql = "SELECT * FROM tbl_users WHERE user_id='" . $userId . "'";
+    $result = mysqli_query($db->db->conn, "SELECT * FROM tbl_users WHERE user_id='" . $userId . "'");
   } while (mysqli_num_rows($result) > 0);
 
 
-  $stmt = mysqli_prepare($db->db_conn, "INSERT INTO tbl_users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?");
-  mysqli_stmt_bind_param($stmt, 'ssssssssss', $userId, $_POST['username'], $_POST['password'], $_POST['firstname'], $_POST['surname'], $_POST['nat_id_number'], $_POST['dob'], $_POST['email'], $_POST['med_aid']);
+  $stmt = mysqli_prepare($db->db_conn, "INSERT INTO tbl_users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+  mysqli_stmt_bind_param($stmt, 'ssssssssss', $userId, $_POST['username'], $_POST['password'], $_POST['firstname'], $_POST['surname'], $_POST['nat_id_number'], $_POST['dob'], $_POST['phone_number'], $_POST['email'], $_POST['med_aid']);
   $result = mysqli_stmt_execute($stmt);
 
   if ($result) {

@@ -36,13 +36,21 @@ $( document ).ready(function() {
     });
   });
 
+  dispenseContainer.on('click', '.display-prescription', function(e) {
+    e.preventDefault();
+    $(this).parents('form').prepend(`<input type="hidden" name="presc_id" value="${$(this).attr('data-presc-id')}">`);
+    $('.qr-scanner').html(`<img src="${$(this).siblings('img').attr('src')}" width="100%" class="img-fluid">`);
+  });
+
   dispenseContainer.on('click', '.dispense-item-add', function(e) {
     let currentCart = $('input#items').val();
     let qty = $(this).siblings('input[name=qty]').val();
     let item = JSON.parse($(this).siblings('select[name=item]').children('option:selected').val());
 
-    item.quantity = parseInt(qty);
-    item.subtotal = parseInt(item.price) * parseInt(item.quantity);
+    item.quantity = parseFloat(qty).toFixed(2);
+    item.subtotal = parseFloat(item.price) * parseFloat(item.quantity);
+    item.subtotal = item.subtotal.toFixed(2);
+
     if (currentCart !== "") {
       currentCart = JSON.parse(currentCart);
     } else {
@@ -61,7 +69,13 @@ $( document ).ready(function() {
         </li>
       `);
 
-    $('#cart-total').html('USD$' + (parseInt($('#cart-total').text()) + item.subtotal));
+    console.log(typeof parseFloat($('#cart-total .cart-total-value').text()));
+    console.log(typeof item.subtotal);
+    console.log(typeof parseFloat($('#cart-total .cart-total-value').text()) + item.subtotal);
+
+    let total = parseFloat($('#cart-total .cart-total-value').text()) + parseFloat(item.subtotal);
+    total = total.toFixed(2);
+    $('#cart-total .cart-total-value').html(total);
 
   });
 
