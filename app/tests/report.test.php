@@ -7,4 +7,4 @@ require_once '../models/report.model.php';
 
 
 $report = new Report();
-var_dump($report->totalUsers());
+var_dump($report->stockByPopularity());

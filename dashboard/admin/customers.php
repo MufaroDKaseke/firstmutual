@@ -5,12 +5,10 @@ require_once '../../app/config/config.php';
 require_once '../../app/models/db.model.php';
 require_once '../../app/models/session.model.php';
 require_once '../../app/models/admin.model.php';
-require_once '../../app/models/stock.model.php';
 
 $db = new Database();
 $session = new Session();
 $user = new Admin();
-$stock = new Stock();
 
 
 ?>
@@ -20,7 +18,7 @@ $stock = new Stock();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Admin</title>
+  <title>Dashboard | Admin -> Customers</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -37,7 +35,7 @@ $stock = new Stock();
     <!-- Sidebar -->
     <aside class="sidebar">
       <div>
-        <a href="#" class="d-block text-center mt-3 mb-5">
+        <a href="./" class="d-block text-center mt-3 mb-5">
           <img src="<?= $_ENV['ROOT']; ?>dist/img/first-mutual-logo.svg" alt="First Mutual Logo" class="w-75">
         </a>
         <ul class="sidebar-nav nav flex-column">
@@ -90,17 +88,21 @@ $stock = new Stock();
     <!-- End Of Sidebar -->
 
     <div class="main">
+      <!-- Header -->
       <nav id="header" class="navbar">
         <div class="container-fluid">
           <div class="row justify-content-between w-100">
             <div class="col d-flex align-items-center">
               <button class="sidebar-toggle btn d-md-none"><i class="fa fa-bars"></i></button>
               <a href="./reports.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-chart-line me-2"></i>View Reports</a>
-              <a href="./new-drug.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-boxes-stacked me-2"></i>Inventory</a>
-              <a href="./new-drug.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-user-group me-2"></i>User Accounts</a>
+              <a href="./products.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-boxes-stacked me-2"></i>Inventory</a>
+              <a href="./customers.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-user-group me-2"></i>User Accounts</a>
             </div>
             <div class="col">
               <ul class="nav align-items-center justify-content-end">
+                <li class="nav-item">
+                  <span class="fw-bold">Admin</span>
+                </li>
                 <li class="nav-item">
                   <a href="./notifications.php" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
@@ -118,12 +120,12 @@ $stock = new Stock();
                     <li><a class="dropdown-item text-center" href="../logout.php"><i class="fa fa-right-from-bracket me-2"></i>Logout</a></li>
                   </ul>
                 </li>
-
               </ul>
             </div>
           </div>
         </div>
       </nav>
+      <!-- End Of Header -->
 
       <div class="main-content">
         <div class="container-fluid">
@@ -197,7 +199,7 @@ $stock = new Stock();
                           <td><?= $customer['phone_number']; ?></td>
                           <td><?= $customer['email']; ?></td>
                           <td><?= $customer['med_aid']; ?></td>
-                          <td><button id="updateCustomer" class="btn btn-sm btn-success me-2" data-user-id="<?= $customer['user_id']; ?>"><i class="fas fa-pencil"></i></button><button id="deleteCustomer" class="btn btn-sm btn-primary" data-user-id="<?= $customer['user_id']; ?>"><i class="fas fa-trash"></i></button></td>
+                          <td><button class="updateCustomer btn btn-sm btn-success me-2" data-user-id="<?= $customer['user_id']; ?>"><i class="fas fa-pencil"></i></button><button class="deleteCustomer btn btn-sm btn-primary" data-user-id="<?= $customer['user_id']; ?>"><i class="fas fa-trash"></i></button></td>
                         </tr>
                       <?php
                       }
@@ -218,38 +220,38 @@ $stock = new Stock();
               <section>
                 <h4 class="mb-3">Register New User</h4>
                 <form action="" id="registerUserForm" method="post">
-                <div class="form-group mb-2 row">
-                  <div class="col-6">
-                    <label for="firstname">Firstname</label>
-                    <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Enter Firstname" required>
+                  <div class="form-group mb-3 row">
+                    <div class="col-6">
+                      <label for="firstname">Firstname</label>
+                      <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Enter Firstname" required>
+                    </div>
+                    <div class="col-6">
+                      <label for="surname">Surname</label>
+                      <input type="text" name="surname" id="surname" class="form-control" placeholder="Enter Surname" required>
+                    </div>
                   </div>
-                  <div class="col-6">
-                    <label for="surname">Surname</label>
-                    <input type="text" name="surname" id="surname" class="form-control" placeholder="Enter Surname" required>
+                  <div class="form-group mb-3">
+                    <label for="nat_id_number">National ID Number</label>
+                    <input type="text" name="nat_id_number" id="nat_id_number" class="form-control" placeholder="63-xxxxxx-R87" required>
                   </div>
-                </div>
-                <div class="form-group mb-2">
-                  <label for="nat_id_number">National ID Number</label>
-                  <input type="text" name="nat_id_number" id="nat_id_number" class="form-control" placeholder="63-xxxxxx-R87" required>
-                </div>
-                <div class="form-group mb-2">
-                  <label for="phone_number">Phone Number</label>
-                  <input type="number" name="phone_number" id="phone_number" class="form-control" placeholder="071111111" required>
-                </div>
-                <div class="form-group mb-3">
-                  <label for="email">Email</label>
-                  <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" required>
-                </div>
-                <div class="form-group mb-3">
-                  <label for="med_aid">Medical Aid</label>
-                  <input type="text" name="med_aid" id="med_aid" class="form-control" placeholder="Enter Medical Aid Number" required>
-                </div>
-                <hr class="bg-primary">
-                <div class="input-group my-2">
-                  <!-- Hidden -->
-                  <input type="hidden" name="registerUserForm" value="registerUserForm">
-                  <button type="submit" class="btn btn-primary w-100">Register User</button>
-                </div>
+                  <div class="form-group mb-3">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="number" name="phone_number" id="phone_number" class="form-control" placeholder="071111111" required>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" required>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="med_aid">Medical Aid</label>
+                    <input type="text" name="med_aid" id="med_aid" class="form-control" placeholder="Enter Medical Aid Number" required>
+                  </div>
+                  <hr class="bg-primary">
+                  <div class="form-group my-2">
+                    <!-- Hidden -->
+                    <input type="hidden" name="registerUserForm" value="registerUserForm">
+                    <button type="submit" class="btn btn-primary w-100">Register User</button>
+                  </div>
                 </form>
               </section>
             </div>
@@ -267,6 +269,28 @@ $stock = new Stock();
   <script>
     $(document).ready(function() {
 
+      const alertsContainer = $('.dashboard-alerts');
+
+      // Add new stock
+      $('.deleteCustomer').on('click', function(e) {
+        console.log($(this).attr('data-user-id'));
+        e.preventDefault();
+
+
+        $.ajax({
+          url: `<?= $_ENV['ROOT']; ?>app/services/delete-user.php`,
+          type: 'POST',
+          dataType: 'html',
+          data: {
+            user_id: `${$(this).attr('data-user-id')}`,
+            delete_user: 'delete_user'
+          },
+          success: function(htmlData) {
+            console.log(htmlData);
+            alertsContainer.html(htmlData);
+          }
+        });
+      });
 
 
     });

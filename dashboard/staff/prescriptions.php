@@ -158,7 +158,7 @@ $prescription = new Prescription();
 
                   <form id="prescriptionsSearchForm" action="">
                     <div class="input-group">
-                      <input type="text" name="q" id="q" class="form-control form-control-sm" placeholder="Search Stock">
+                      <input type="text" name="q" id="q" class="form-control form-control-sm" placeholder="Search Prescriptions">
                       <div class="input-group-text p-0">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-magnifying-glass"></i></button>
                       </div>

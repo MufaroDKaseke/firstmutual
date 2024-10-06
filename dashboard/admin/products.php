@@ -19,7 +19,7 @@ $stock = new Stock();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Admin</title>
+  <title>Dashboard | Admin -> Stock</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@ $stock = new Stock();
     <!-- Sidebar -->
     <aside class="sidebar">
       <div>
-        <a href="#" class="d-block text-center mt-3 mb-5">
+        <a href="./" class="d-block text-center mt-3 mb-5">
           <img src="<?= $_ENV['ROOT']; ?>dist/img/first-mutual-logo.svg" alt="First Mutual Logo" class="w-75">
         </a>
         <ul class="sidebar-nav nav flex-column">
@@ -89,17 +89,21 @@ $stock = new Stock();
     <!-- End Of Sidebar -->
 
     <div class="main">
+      <!-- Header -->
       <nav id="header" class="navbar">
         <div class="container-fluid">
           <div class="row justify-content-between w-100">
             <div class="col d-flex align-items-center">
               <button class="sidebar-toggle btn d-md-none"><i class="fa fa-bars"></i></button>
               <a href="./reports.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-chart-line me-2"></i>View Reports</a>
-              <a href="./new-drug.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-boxes-stacked me-2"></i>Inventory</a>
-              <a href="./new-drug.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-user-group me-2"></i>User Accounts</a>
+              <a href="./products.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-boxes-stacked me-2"></i>Inventory</a>
+              <a href="./customers.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-user-group me-2"></i>User Accounts</a>
             </div>
             <div class="col">
               <ul class="nav align-items-center justify-content-end">
+                <li class="nav-item">
+                  <span class="fw-bold">Admin</span>
+                </li>
                 <li class="nav-item">
                   <a href="./notifications.php" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
@@ -117,12 +121,12 @@ $stock = new Stock();
                     <li><a class="dropdown-item text-center" href="../logout.php"><i class="fa fa-right-from-bracket me-2"></i>Logout</a></li>
                   </ul>
                 </li>
-
               </ul>
             </div>
           </div>
         </div>
       </nav>
+      <!-- End Of Header -->
 
       <div class="main-content">
         <div class="container-fluid">
@@ -134,7 +138,7 @@ $stock = new Stock();
                 if (isset($_POST['newProductForm'])) {
                   $formData = $_POST;
                   $formData['stock_id'] = generateId('stc_');
-                  $formData['balance'] = 0;
+                  //$formData['balance'] = 0;
                   if ($stock->addDrug($formData)) {
                 ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -235,30 +239,36 @@ $stock = new Stock();
               </section>
             </div>
             <div class="col-md-4">
-              <section class="customers p-5">
-                <h3>New Stock Item</h3>
+              <section class="customers p-4">
+                <h3 class="mb-3">New Stock Item</h3>
                 <form id="newProductForm" action="" method="post">
-                  <label for="" class="form-label">Product Name</label>
-                  <div class="input-group">
+                  <div class="form-group mb-3">
+                    <label for="name" class="form-label">Product Name</label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Product Name" required>
                   </div>
-                  <label for="" class="form-label">Product Description</label>
-                  <div class="input-group">
+                  <div class="form-group mb-3">
+                    <label for="description" class="form-label">Product Description</label>
                     <input type="text" name="description" id="description" class="form-control" placeholder="Product Description" required>
                   </div>
-                  <label for="" class="form-label">Threshold</label>
-                  <div class="input-group">
+                  <div class="form-group mb-3">
+                    <label for="threshold" class="form-label">Threshold</label>
                     <input type="number" name="threshold" id="threshold" class="form-control" placeholder="Threshold" required>
                   </div>
-                  <label for="" class="form-label">Price</label>
-                  <div class="input-group">
-                    <div class="input-group-text">
-                      <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <input type="number" name="price" id="price" class="form-control" placeholder="Product Name" step="0.01" min="0" required>
+                  <div class="form-group mb-3">
+                    <label for="Balance" class="form-label">Initial Balance</label>
+                    <input type="number" name="Balance" id="Balance" class="form-control" placeholder="Balance" required>
                   </div>
-                  <hr class="my-2">
-                  <div class="input-group">
+                  <div class="form-group mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <div class="input-group">
+                      <div class="input-group-text">
+                        <i class="fas fa-dollar-sign"></i>
+                      </div>
+                      <input type="number" name="price" id="price" class="form-control" placeholder="Product Name" step="0.01" min="0" required>
+                    </div>
+                  </div>
+                  <hr class="my-3">
+                  <div class="form-group">
                     <!-- Hidden -->
                     <input type="hidden" name="newProductForm" value="newProductForm">
                     <button type="submit" class="btn btn-primary w-100">Complete</button>

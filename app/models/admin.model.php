@@ -45,6 +45,27 @@ class Admin extends Database {
   }
 
   // Delete User
+  public function deleteUser($userId) {
+    $this->connect();
+    $stmt = mysqli_prepare($this->db_conn, "DELETE FROM tbl_users WHERE user_id=?;");
+    mysqli_stmt_bind_param($stmt, 's', $userId);
+    $result = mysqli_stmt_execute($stmt);
+
+    $this->close();
+    return $result;
+  }
+  
   // Update User
+
+  // Update password
+  public function resetPassword($data) {
+    $this->connect();
+    $stmt = mysqli_prepare($this->db_conn, "UPDATE tbl_admins SET password=? WHERE admin_id=?;");
+    mysqli_stmt_bind_param($stmt, 'ss', $data['password'], $data['admin_id']);
+    $result = mysqli_stmt_execute($stmt);
+
+    $this->close();
+    return $result;
+  }
   
 }

@@ -4,12 +4,10 @@ require_once '../../vendor/autoload.php';
 require_once '../../app/config/config.php';
 require_once '../../app/models/db.model.php';
 require_once '../../app/models/session.model.php';
-require_once '../../app/models/Admin.model.php';
-require_once '../../app/models/report.model.php';
+require_once '../../app/models/admin.model.php';
 
 $session = new Session();
 $user = new Admin();
-$report = new Report();
 
 
 ?>
@@ -20,7 +18,7 @@ $report = new Report();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Reports</title>
+  <title>Dashboard | Admin -> Settings</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -28,7 +26,6 @@ $report = new Report();
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/node_modules/animate.css/animate.min.css">
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/dist/css/dashboard.min.css">
-  <script type="text/javascript" src="<?= $_ENV['ROOT']; ?>/dist/lib/instascan/instascan.min.js"></script>
 
 </head>
 
@@ -92,18 +89,21 @@ $report = new Report();
     <!-- End Of Sidebar -->
 
     <div class="main">
-      <!-- Header -->
+<!-- Header -->
       <nav id="header" class="navbar">
         <div class="container-fluid">
           <div class="row justify-content-between w-100">
             <div class="col d-flex align-items-center">
               <button class="sidebar-toggle btn d-md-none"><i class="fa fa-bars"></i></button>
               <a href="./reports.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-chart-line me-2"></i>View Reports</a>
-              <a href="./new-drug.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-boxes-stacked me-2"></i>Inventory</a>
-              <a href="./new-drug.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-user-group me-2"></i>User Accounts</a>
+              <a href="./products.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-boxes-stacked me-2"></i>Inventory</a>
+              <a href="./customers.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-user-group me-2"></i>User Accounts</a>
             </div>
             <div class="col">
               <ul class="nav align-items-center justify-content-end">
+                <li class="nav-item">
+                  <span class="fw-bold">Admin</span>
+                </li>
                 <li class="nav-item">
                   <a href="./notifications.php" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
@@ -121,7 +121,6 @@ $report = new Report();
                     <li><a class="dropdown-item text-center" href="../logout.php"><i class="fa fa-right-from-bracket me-2"></i>Logout</a></li>
                   </ul>
                 </li>
-
               </ul>
             </div>
           </div>
@@ -135,23 +134,55 @@ $report = new Report();
             <div class="col-12">
               <div class="dashboard-alerts">
                 <!-- Alerts go here -->
+                <?php
+                // Handle form to reset password
+                if (isset($_POST['resetPasswordAdmin'])) {
+                  if ($user->resetPassword($_POST)) {
+                ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <strong>Success!</strong> New password saved!</b>.
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  <?php
+                  } else {
+                  ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <strong>Error!</strong> Error occured whilst updating account password!</b>.
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php
+                  }
+                }
+
+                ?>
               </div>
             </div>
             <div class="col-md-6">
               <section>
                 <h4 class="mb-4">Settings</h4>
-                <form action="" method="post">
-                  <label for="admin_id" class="form-label">Admin's ID</label>
-                  <div class="input-group">
-                    <input type="text" name="admin_id" id="admin_id" class="form-control" value="<?= $user['user_id']; ?>" disabled>
+                <form id="resetPasswordForm" action="" method="post">
+                  <div class="form-group mb-3">
+                    <label for="admin_id" class="form-label">Admin's ID</label>
+                    <input type="text" name="admin_id" id="admin_id" class="form-control" value="<?= $_SESSION['admin_id']; ?>" disabled>
                   </div>
-                  <label for="username" class="form-label">Username</label>
-                  <div class="input-group">
-                    <input type="text" name="username" id="username" class="form-control" value="<?= $user['username']; ?>" required>
+                  <div class="form-group mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" name="username" id="username" class="form-control" value="<?= $_SESSION['username']; ?>" required>
                   </div>
-                  <label for="password" class="form-label">Change assword</label>
-                  <div class="input-group">
-                    <input type="text" name="password" id="password" class="form-control"" required>
+                  <div class="form-group mb-3">
+                    <label for="password" class="form-label">Change Password</label>
+                    <input type="text" name="password" id="password" class="form-control" placeholder="Change Password" required>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="password" class="form-label">Confirm New Password</label>
+                    <input type="text" name="confirm_password" id="confirm_password" class="form-control" placeholder="Confirm New Password" required>
+                  </div>
+                  <div class="form-group text-end">
+                    <!-- Hidden -->
+                    <input type="hidden" name="admin_id" value="<?= $SESSION['admin_id']; ?>">
+                    <input type="hidden" name="resetPasswordAdmin" value="resetPasswordAdmin">
+                    <!-- End Of Hidden -->
+                    <button type="submit" class="btn btn-primary">Change Password</button>
                   </div>
                 </form>
               </section>

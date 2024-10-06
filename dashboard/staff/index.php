@@ -97,6 +97,9 @@ $qr = new QR();
             <div class="col">
               <ul class="nav align-items-center justify-content-end">
                 <li class="nav-item">
+                  <span class="fw-bold">Staff</span>
+                </li>
+                <li class="nav-item">
                   <a href="./notifications.php" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
                 <li class="nav-item dropdown">

@@ -20,7 +20,7 @@ $report = new Report();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Reports</title>
+  <title>Dashboard | Admin -> Reports</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -28,7 +28,6 @@ $report = new Report();
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/node_modules/animate.css/animate.min.css">
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/dist/css/dashboard.min.css">
-  <script type="text/javascript" src="<?= $_ENV['ROOT']; ?>/dist/lib/instascan/instascan.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
@@ -40,7 +39,7 @@ $report = new Report();
     <!-- Sidebar -->
     <aside class="sidebar">
       <div>
-        <a href="#" class="d-block text-center mt-3 mb-5">
+        <a href="./" class="d-block text-center mt-3 mb-5">
           <img src="<?= $_ENV['ROOT']; ?>dist/img/first-mutual-logo.svg" alt="First Mutual Logo" class="w-75">
         </a>
         <ul class="sidebar-nav nav flex-column">
@@ -100,11 +99,14 @@ $report = new Report();
             <div class="col d-flex align-items-center">
               <button class="sidebar-toggle btn d-md-none"><i class="fa fa-bars"></i></button>
               <a href="./reports.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-chart-line me-2"></i>View Reports</a>
-              <a href="./new-drug.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-boxes-stacked me-2"></i>Inventory</a>
-              <a href="./new-drug.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-user-group me-2"></i>User Accounts</a>
+              <a href="./products.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-boxes-stacked me-2"></i>Inventory</a>
+              <a href="./customers.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-user-group me-2"></i>User Accounts</a>
             </div>
             <div class="col">
               <ul class="nav align-items-center justify-content-end">
+                <li class="nav-item">
+                  <span class="fw-bold">Admin</span>
+                </li>
                 <li class="nav-item">
                   <a href="./notifications.php" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
@@ -122,7 +124,6 @@ $report = new Report();
                     <li><a class="dropdown-item text-center" href="../logout.php"><i class="fa fa-right-from-bracket me-2"></i>Logout</a></li>
                   </ul>
                 </li>
-
               </ul>
             </div>
           </div>
@@ -241,39 +242,41 @@ $report = new Report();
   <script type="text/javascript">
     $(document).ready(function() {
 
-    let salesChart = new Chart(document.getElementById('salesChart').getContext('2d'), {
-      type: 'line',
-      data: {
-        labels: [<?php foreach ($dailySales as $day) {
-                    echo "'" . $day['sale_date'] .  "', ";
-                  } ?>],
-        datasets: [{
-          label: 'Daily Sales ($USD)',
-          data: [<?php foreach ($dailySales as $day) {
-                    echo $day['sum'] . ', ';
-                  } ?>],
-          borderColor: 'green',
-          backgroundColor: 'green'
-        }]
-      }
-    });
+      // Sales chart
+      let salesChart = new Chart(document.getElementById('salesChart').getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: [<?php foreach ($dailySales as $day) {
+                      echo "'" . $day['sale_date'] .  "', ";
+                    } ?>],
+          datasets: [{
+            label: 'Daily Sales ($USD)',
+            data: [<?php foreach ($dailySales as $day) {
+                      echo $day['sum'] . ', ';
+                    } ?>],
+            borderColor: 'green',
+            backgroundColor: 'green'
+          }]
+        }
+      });
 
-    let salesNumbersChart = new Chart(document.getElementById('salesNumbersChart').getContext('2d'), {
-      type: 'line',
-      data: {
-        labels: [<?php foreach ($dailySales as $day) {
-                    echo "'" . $day['sale_date'] .  "', ";
-                  } ?>],
-        datasets: [{
-          label: 'Numbers Of Sales',
-          data: [<?php foreach ($dailySales as $day) {
-                    echo  $report->numberOfSales($day['sale_date']) . ', ';
-                  } ?>],
-          borderColor: 'red',
-          backgroundColor: 'red'
-        }]
-      }
-    });
+      // Sales Numbers Chart
+      let salesNumbersChart = new Chart(document.getElementById('salesNumbersChart').getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: [<?php foreach ($dailySales as $day) {
+                      echo "'" . $day['sale_date'] .  "', ";
+                    } ?>],
+          datasets: [{
+            label: 'Numbers Of Sales',
+            data: [<?php foreach ($dailySales as $day) {
+                      echo  $report->numberOfSales($day['sale_date']) . ', ';
+                    } ?>],
+            borderColor: 'red',
+            backgroundColor: 'red'
+          }]
+        }
+      });
 
 
     });

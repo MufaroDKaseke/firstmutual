@@ -6,14 +6,10 @@ require_once '../../app/models/db.model.php';
 require_once '../../app/models/session.model.php';
 require_once '../../app/models/admin.model.php';
 require_once '../../app/models/stock.model.php';
-require_once '../../app/models/qr.model.php';
-require_once '../../app/models/sales.model.php';
 
 $session = new Session();
 $user = new Admin();
 $stock = new Stock();
-$qr = new QR();
-$sales = new Sales();
 
 
 ?>
@@ -24,7 +20,7 @@ $sales = new Sales();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | POS</title>
+  <title>Dashboard | Admin -> Delivery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -32,7 +28,6 @@ $sales = new Sales();
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/node_modules/animate.css/animate.min.css">
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= $_ENV['ROOT']; ?>/dist/css/dashboard.min.css">
-  <script type="text/javascript" src="<?= $_ENV['ROOT']; ?>/dist/lib/instascan/instascan.min.js"></script>
 
 </head>
 
@@ -43,7 +38,7 @@ $sales = new Sales();
     <!-- Sidebar -->
     <aside class="sidebar">
       <div>
-        <a href="#" class="d-block text-center mt-3 mb-5">
+        <a href="./" class="d-block text-center mt-3 mb-5">
           <img src="<?= $_ENV['ROOT']; ?>dist/img/first-mutual-logo.svg" alt="First Mutual Logo" class="w-75">
         </a>
         <ul class="sidebar-nav nav flex-column">
@@ -102,11 +97,15 @@ $sales = new Sales();
           <div class="row justify-content-between w-100">
             <div class="col d-flex align-items-center">
               <button class="sidebar-toggle btn d-md-none"><i class="fa fa-bars"></i></button>
-              <a href="./pos.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-circle-play me-2"></i>Start Dispensing</a>
-              <a href="./availability.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fa fa-eye me-2"></i>Check Availability</a>
+              <a href="./reports.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-chart-line me-2"></i>View Reports</a>
+              <a href="./products.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-boxes-stacked me-2"></i>Inventory</a>
+              <a href="./customers.php" class="btn btn-primary btn-sm rounded-pill mx-2 d-none d-md-block"><i class="fas fa-user-group me-2"></i>User Accounts</a>
             </div>
             <div class="col">
               <ul class="nav align-items-center justify-content-end">
+                <li class="nav-item">
+                  <span class="fw-bold">Admin</span>
+                </li>
                 <li class="nav-item">
                   <a href="./notifications.php" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
@@ -143,11 +142,11 @@ $sales = new Sales();
             <div class="col-lg-9">
               <section>
                 <div class="d-flex justify-content-between mb-3">
-                  <h4>Stock Deliveries</h4>
+                  <h4>Stock</h4>
 
                   <form id="stockSearchForm" action="">
                     <div class="input-group">
-                      <input type="text" name="q" id="q" class="form-control form-control-sm" placeholder="Search Stock">
+                      <input type="text" name="q" id="q" class="form-control form-control-sm" placeholder="Search Stock Entries">
                       <div class="input-group-text p-0">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-magnifying-glass"></i></button>
                       </div>

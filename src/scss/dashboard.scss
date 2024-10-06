@@ -241,3 +241,14 @@ body {
     height: auto;
   }
 }
+
+#userInfoTabs {
+  .nav-link {
+    font-weight: 700;
+
+    &.active {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+}

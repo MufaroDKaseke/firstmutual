@@ -44,7 +44,7 @@ class Report extends Database {
     $this->connect();
     if ($date === null) {
       //$date = date('Y-m-d');
-      $sql = "SELECT DATE(sale_date) as sale_date, SUM(total) as sum FROM tbl_sales GROUP BY DATE(sale_date) ORDER BY sale_date DESC";
+      $sql = "SELECT DATE(sale_date) as sale_date, SUM(total) as sum FROM tbl_sales GROUP BY DATE(sale_date)";
       $result = mysqli_query($this->db_conn, $sql);
 
       if (mysqli_num_rows($result) > 0) {
@@ -129,15 +129,20 @@ class Report extends Database {
   // Get drug statistics
   public function stockByPopularity($limit=10) {
     $this->connect();
-    $sql = "SELECT DISTINCT stock_id, SUM(quantity) as quantity FROM tbl_sales_items GROUP BY stock_id ORDER BY quantity DESC LIMIT " . $limit . ";";
+    $sql = "SELECT stock_id, SUM(quantity) as quantity FROM tbl_sales_items GROUP BY stock_id ORDER BY quantity DESC LIMIT " . $limit . ";";
     $result = mysqli_query($this->db_conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
-      return mysqli_fetch_assoc($result)['total'];
+      $drugs = [];
+      while($row = mysqli_fetch_assoc($result)) {
+        $drugs[$row['stock_id']] = $row;
+      }
+      
+      $this->close();
+      return $drugs;
     } else {
+      $this->close();
       return 0;
     }
   }
-
-  // Get popular meds
 }

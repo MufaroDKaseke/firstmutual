@@ -35,35 +35,36 @@ $prescription = new Prescription();
 
 
   <main class="d-flex">
+    <!-- Sidebar -->
     <aside class="sidebar">
       <div>
-        <a href="#" class="d-block text-center mt-3 mb-5">
+        <a href="./" class="d-block text-center mt-3 mb-5">
           <img src="<?= $_ENV['ROOT']; ?>dist/img/first-mutual-logo.svg" alt="First Mutual Logo" class="w-75">
         </a>
         <ul class="sidebar-nav nav flex-column">
           <li class="nav-item">
-            <a href="./" class="nav-link active"><i class="fas fa-home me-2"></i>Home</a>
+            <a href="./" class="nav-link"><i class="fas fa-home me-2"></i>Home</a>
           </li>
           <li class="nav-item">
-            <a href="./reports.php" class="nav-link"><i class="fas fa-hospital me-2"></i>Prescriptions</a>
+            <a href="./prescriptions.php" class="nav-link"><i class="fas fa-prescription me-2"></i>Prescriptions</a>
           </li>
           <li class="nav-item">
-            <a href="./reports.php" class="nav-link"><i class="fas fa-check-circle me-2"></i>Availability</a>
+            <a href="./availability.php" class="nav-link active"><i class="fas fa-check-circle me-2"></i>Availability</a>
           </li>
           <li class="nav-item">
-            <a href="./reports.php" class="nav-link"><i class="fas fa-hospital me-2"></i>Medical Aid</a>
+            <a href="./account.php" class="nav-link"><i class="fas fa-hospital me-2"></i>Medical Aid</a>
           </li>
           <li class="nav-item">
-            <a href="./settings.php" class="nav-link"><i class="fas fa-cog me-2"></i>Settings</a>
+            <a href="./account.php" class="nav-link"><i class="fas fa-cog me-2"></i>Account Settings</a>
           </li>
         </ul>
-
       </div>
       <div class="p-3">
         <a href="<?= $_ENV['ROOT']; ?>dashboard/logout.php" class="btn btn-outline-primary w-100 text-white"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
       </div>
       <button class="sidebar-close btn"><i class="fas fa-angle-left"></i></button>
     </aside>
+    <!-- End Of Sidebar -->
 
     <div class="main">
       <nav id="header" class="navbar">
