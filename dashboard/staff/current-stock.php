@@ -162,14 +162,6 @@ $sales = new Sales();
                     </tr>
                   </thead>
                   <tbody>
-                    <!-- <tr>
-                      <td>1</td>
-                      <td>Paracetamol</td>
-                      <td colspan="3">White round tablet (20mg packaging)</td>
-                      <td>12</td>
-                      <td>10</td>
-                      <td><button class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></button></td>
-                    </tr> -->
                     <?php
                     $currentStock = $stock->getAllDrugs();
                     if ($currentStock !== false) {

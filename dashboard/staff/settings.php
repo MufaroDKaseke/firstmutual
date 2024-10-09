@@ -127,6 +127,45 @@ $report = new Report();
             <div class="col-12">
               <div class="dashboard-alerts">
                 <!-- Alerts go here -->
+                <?php
+
+                if (isset($_POST['updateStaffInformationForm'])) {
+                  if ($user->updateInformation($_POST)) {
+                ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <strong>Success!</strong> New details saved! Please logout and login again to view changes.</b>.
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  <?php
+                  } else {
+                  ?>
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                      <strong>Error!</strong> New details couldn't be saved!</b>.
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  <?php
+                  }
+                }
+
+
+                if (isset($_POST['resetPassword'])) {
+                  if ($user->resetPassword($_POST)) {
+                  ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <strong>Success!</strong> New password saved! Please logout and login again!</b>.
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  <?php
+                  } else {
+                  ?>
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                      <strong>Error!</strong> Error updating password!</b>.
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php
+                  }
+                }
+                ?>
               </div>
             </div>
             <div class="col-lg-6">
@@ -151,17 +190,17 @@ $report = new Report();
                       </div>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group mb-3">
                     <label for="email">Email Address</label>
                     <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" value="<?= $_SESSION['email']; ?>" required>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group mb-3">
                     <label for="phone_number">Phone Number</label>
                     <input type="tel" name="phone_number" id="phone_number" class="form-control" placeholder="Phone Number" value="<?= $_SESSION['phone_number']; ?>" required>
                   </div>
-                  <div class="input-group justify-content-end">
+                  <div class="form-group text-end">
                     <!-- Hidden -->
-                     <input type="hidden" name="updateStaffInformationForm">
+                    <input type="hidden" name="updateStaffInformationForm">
                     <!-- End Of Hidden -->
                     <button type="submit" class="btn btn-primary">Update Information</button>
                   </div>
@@ -172,13 +211,15 @@ $report = new Report();
               <section>
                 <h4>Reset Password</h4>
                 <form action="" method="post">
-                  <div class="form-group">
-                    <input type="password" name="password" id="password" class="form-control">
+                  <div class="form-group mb-3">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="New Password" class="form-control">
                   </div>
-                  <div class="form-group">
-                    <input type="confirm_password" name="confirm_password" id="confirm_password" class="form-control">
+                  <div class="form-group mb-3">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="confirm_password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" class="form-control">
                   </div>
-                  <div class="form-group">
+                  <div class="form-group text-end">
                     <!-- Hidden -->
                     <input type="hidden" name="resetPassword" value="resetPassword">
                     <!-- End Of Hidden -->

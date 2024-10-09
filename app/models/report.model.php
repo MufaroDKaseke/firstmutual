@@ -145,4 +145,30 @@ class Report extends Database {
       return 0;
     }
   }
+
+  // Sales made by staff member(daily sales)
+  public function salesByStaffMember($staffId) {
+    $this->connect();
+    $sql = "SELECT SUM(total) as total FROM tbl_sales WHERE staff_id='" . $staffId . "';";
+    $result = mysqli_query($this->db_conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+      return mysqli_fetch_assoc($result)['total'];
+    } else {
+      return 0;
+    }
+  }
+
+  // Sales made by staff member(daily sales)
+  public function salesByStaffMemberToday($staffId) {
+    $this->connect();
+    $sql = "SELECT SUM(total) as total FROM tbl_sales WHERE staff_id='" . $staffId . "' AND sale_date='" . date('Y-m-d') . "';";
+    $result = mysqli_query($this->db_conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+      return mysqli_fetch_assoc($result)['total'];
+    } else {
+      return 0;
+    }
+  }
 }

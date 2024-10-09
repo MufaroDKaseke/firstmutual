@@ -23,7 +23,8 @@
       <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email">
     </div>
     <hr class="bg-primary">
-    <div class="input-group justify-content-end">
+    <div class="input-group justify-content-between">
+      <button type="button" class="btn btn-primary" data-load="dispense-tab-2">Skip Registration</button>
       <!-- Hidden -->
       <input type="hidden" name="register-user" value="register-user">
       <input type="hidden" name="presc_id" value="00000" id="presc_id">

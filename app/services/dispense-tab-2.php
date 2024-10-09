@@ -50,7 +50,15 @@ $stock = new Stock();
     <input type="hidden" name="items" value="[]" id="items">
     <!-- End Of Hidden -->
     <div>
-      <h6 class="text-secondary">FullName : <?= $_POST['firstname'] . ' ' . $_POST['surname']; ?></h6>
+      <h6 class="text-secondary">FullName : 
+        <?php
+        if (!empty($_POST['firstname'])) {
+          echo $_POST['firstname'] . ' ' . $_POST['surname'];
+        } else {
+          echo "N/A";
+        }
+        ?>
+      </h6>
       <h6 class="text-secondary">Medical Aid :
         <?php
         if (isset($_POST['has_medical_aid'])) {

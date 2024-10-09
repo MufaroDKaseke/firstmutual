@@ -139,16 +139,24 @@ $report = new Report();
                         <th scope="row">Customers Served</th>
                         <td><?= $_SESSION['queue']; ?></td>
                       </tr>
+                      <tr>
+                        <th scope="row">Sales Made</th>
+                        <td><?= $report->salesByStaffMemberToday($_SESSION['staff_id']); ?></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Sales Made Total</th>
+                        <td><?= $report->salesByStaffMember($_SESSION['staff_id']); ?></td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
               </section>
             </div>
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
               <section>
                 <h3>Monthly Reports</h3>
               </section>
-            </div>
+            </div> -->
           </div>
         </div>
 

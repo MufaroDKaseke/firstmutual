@@ -22,7 +22,7 @@ class Staff extends Database {
 
   public function resetPassword($formData) {
     $this->connect();
-    $stmt = mysqli_prepare($this->db_conn, "UPDATE tbl_staff SET 'password'=? WHERE staff_id=?;");
+    $stmt = mysqli_prepare($this->db_conn, "UPDATE tbl_staff SET `password`=? WHERE staff_id=?;");
     mysqli_stmt_bind_param($stmt, 'ss', $formData['password'], $formData['staff_id']);
     $result = mysqli_stmt_execute($stmt);
 

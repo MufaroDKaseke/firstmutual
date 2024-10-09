@@ -182,14 +182,17 @@ $sales = new Sales();
   <script src="<?= $_ENV['ROOT']; ?>/dist/js/dashboard.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
+      
       const scanner = new Instascan.Scanner({
         video: document.getElementById('medIdScanner')
-      });
+      }); // Scanner container
+      
       const dispenseContainer = $('.dispense-container');
+
       scanner.addListener('scan', function(qrContent) {
         console.log(qrContent);
 
-        // Get user details and prescriptions from
+        // Get user details and prescriptions from db asynchronously
         $.ajax({
           url: `<?= $_ENV['ROOT']; ?>app/services/dispense-qr-1.php`,
           type: 'POST',
@@ -198,7 +201,7 @@ $sales = new Sales();
             qr_code: `${qrContent}`
           },
           beforeSend: function() {
-            $('.qr-scanner').html('<div class="d-flex align-items-center justify-content-center" height="400px"><h4>Getting results...</h4></div>')
+            $('.qr-scanner').html('<div class="d-flex align-items-center justify-content-center" height="400px"><h4>Getting results...</h4></div>');
           },
           success: function(htmlData) {
             dispenseContainer.html(htmlData);
@@ -209,7 +212,7 @@ $sales = new Sales();
       });
 
 
-      // Instascan for QR scanning
+      // Get Cameras
       Instascan.Camera.getCameras().then(function(cameras) {
         if (cameras.length > 0) {
           scanner.start(cameras[1]);

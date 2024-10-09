@@ -1,6 +1,5 @@
 <?php
 
-
 // Start Session
 session_start(['cookie_lifetime' => 21600]);
 
@@ -25,6 +24,7 @@ class Session extends Database {
 
 
 
+  // Handle login
   function login($userType ,$data) {
     $this->connect();
 
@@ -43,7 +43,6 @@ class Session extends Database {
 
     $result = mysqli_query($this->db_conn, $sql);
 
-    var_dump($data);
     if (mysqli_num_rows($result) === 1) {
       $user = mysqli_fetch_assoc($result);
       if ($user['password'] === $data['password']) {
@@ -94,12 +93,10 @@ class Session extends Database {
     }
 
     $_SESSION['user_is_logged_in'] = true;
-    //echo 'Login Success';
-    //echo "Role: " . $_SESSION['user_type'];
-    //echo "Username" . $_SESSION['username'];
     return true;
   }
 
+  // Get session data
   function data() {
     if(isset($_SESSION)) {
       return $_SESSION;
@@ -108,6 +105,7 @@ class Session extends Database {
     }
   }
 
+  // Handle user logout
   function logout() {
     if (isset($_SESSION)) {
       $_SESSION = array();
@@ -117,6 +115,7 @@ class Session extends Database {
     return !$_SESSION['user_is_logged_in'];
   }
 
+  // Handle error on login
   function errorLogin($errorCode) {
     header("Location: " . $_ENV['ROOT'] . "dashboard/login.php?error=" . $errorCode);
     exit;

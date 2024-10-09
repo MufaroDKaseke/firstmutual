@@ -4,7 +4,7 @@ require_once '../../vendor/autoload.php';
 require_once '../../app/config/config.php';
 require_once '../../app/models/db.model.php';
 require_once '../../app/models/session.model.php';
-require_once '../../app/models/Admin.model.php';
+require_once '../../app/models/admin.model.php';
 require_once '../../app/models/report.model.php';
 
 $session = new Session();

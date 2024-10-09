@@ -48,10 +48,10 @@ $medicalAid = $qr->getUserMedicalAid($_POST['qr_code']);
                 <?php
                 foreach ($prescriptions as $prescription) {
                 ?>
-                <li class="list-group-item">
-                  <?= $prescription['uploaded_on']; ?>
-                  <img src="data:image/png;base64,<?= $prescription['img']; ?>" alt="" width="50px" class="img-fluid">
-                  <button type="button" class="display-prescription btn btn-sm btn-primary" data-presc-id="<?= $prescription['presc_id'];?>"><i class="fa fa-eye"></i> View</button>
+                  <li class="list-group-item">
+                    <?= $prescription['uploaded_on']; ?>
+                    <img src="data:image/png;base64,<?= $prescription['img']; ?>" alt="" width="50px" class="img-fluid">
+                    <button type="button" class="display-prescription btn btn-sm btn-primary" data-presc-id="<?= $prescription['presc_id']; ?>"><i class="fa fa-eye"></i> View</button>
                   </li>
                 <?php
                 }
@@ -70,6 +70,7 @@ $medicalAid = $qr->getUserMedicalAid($_POST['qr_code']);
             <?php
             if ($medicalAid !== false) {
             ?>
+              <input type="hidden" name="has_medical_aid" value="true">
               <h5>Medical Aid : <span class="text-success"><i class="fa fa-circle-check me-2"></i>Found</span></h5>
 
               <?php
